@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    public Animator playerAnimator;
 
     Vector3 targetPosition;
     Vector3 lookAtTarget;
@@ -14,6 +15,9 @@ public class PlayerController : MonoBehaviour {
     bool moving;
 	// Use this for initialization
 	void Start () {
+
+        playerAnimator = GameObject.Find("Player").GetComponent<Animator>();
+
         rotSpeed = 5;
         speed = 10;
         moving = false;
@@ -47,6 +51,7 @@ public class PlayerController : MonoBehaviour {
             lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y , targetPosition.z - transform.position.z);
             playerRot = Quaternion.LookRotation(lookAtTarget);
             moving = true;
+            playerAnimator.SetBool("moving", true);
         }
     }
 
@@ -58,6 +63,7 @@ public class PlayerController : MonoBehaviour {
         if (transform.position == targetPosition)
         {
             moving = false;
+            playerAnimator.SetBool("moving", false);
         }
     }
 }
