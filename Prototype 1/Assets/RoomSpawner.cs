@@ -5,16 +5,22 @@ using UnityEngine;
 public class RoomSpawner : MonoBehaviour {
 
     public int roomKind;
-
+    
     public RoomsArrays rooms;
     public int randomRoom;
     public bool spawned;
     public float time = 5f;
     public int limitStartingRooms;
     public int maxLimiter;
+    public enum directions { idle, mad, chase, die};
+    public directions currentstate;
 
     private void Update()
     {
+        if (currentstate == directions.chase)
+        {
+            //DO WHATEVER IS NEEDED FOR CHASE, DONT WORRY ABOUT THIS, THIS IS JUST AN EXAMPLE.
+        }
         if (rooms.startTime > 0 || rooms.roomAmount.Count <= 20)
         {
             limitStartingRooms = 2;
@@ -36,44 +42,73 @@ public class RoomSpawner : MonoBehaviour {
     }
     void SpawnRoom ()
     {
+
         if (!spawned)
         {
             if (roomKind == 1)
             {
-                randomRoom = Random.Range(limitStartingRooms, rooms.roomsKindRight.Length);
-                Instantiate(rooms.roomsKindRight[randomRoom * maxLimiter], transform.position, rooms.roomsKindRight[randomRoom].transform.rotation);
+                Instantiate(rooms.halls[0], transform.position, this.transform.rotation);
             }
             else if (roomKind == 2)
             {
-                randomRoom = Random.Range(limitStartingRooms, rooms.roomsKindBottom.Length);
-                Instantiate(rooms.roomsKindBottom[randomRoom * maxLimiter], transform.position, rooms.roomsKindBottom[randomRoom].transform.rotation);
+                Instantiate(rooms.halls[1], transform.position, this.transform.rotation);
             }
             else if (roomKind == 3)
             {
-                randomRoom = Random.Range(limitStartingRooms, rooms.roomsKindTop.Length);
-                Instantiate(rooms.roomsKindTop[randomRoom * maxLimiter], transform.position, rooms.roomsKindTop[randomRoom].transform.rotation);
+                Instantiate(rooms.halls[2], transform.position, this.transform.rotation);
             }
             else if (roomKind == 4)
             {
-                randomRoom = Random.Range(limitStartingRooms, rooms.roomsKindLeft.Length);
-                Instantiate(rooms.roomsKindLeft[randomRoom * maxLimiter], transform.position, rooms.roomsKindLeft[randomRoom].transform.rotation);
+                Instantiate(rooms.halls[3], transform.position, this.transform.rotation);
+            }
+            else if (roomKind == 5)
+            {
+                randomRoom = Random.Range(0, rooms.actualRooms.Length);
+                Instantiate(rooms.actualRooms[randomRoom], transform.position, rooms.actualRooms[randomRoom].transform.rotation);
+            }
+            else if (roomKind == 51)
+            {
+                randomRoom = Random.Range(0, rooms.actualRooms.Length);
+                Instantiate(rooms.actualRooms[randomRoom], transform.position, this.transform.rotation * Quaternion.Euler(0, 180, 0));
+            }
+            else if (roomKind == 52)
+            {
+                randomRoom = Random.Range(0, rooms.actualRooms.Length);
+                Instantiate(rooms.actualRooms[randomRoom], transform.position, this.transform.rotation * Quaternion.Euler(0, 90, 0));
             }
             spawned = true;
         }
-       
+        //else
+        //{
+        //    if (roomKind == 1)
+        //    {
+        //        randomRoom = Random.Range(0, rooms.actualRooms.Length);
+        //        Instantiate(rooms.actualRooms[randomRoom], transform.position, rooms.actualRooms[randomRoom].transform.rotation);
+        //    }
+        //    else if (roomKind == 2)
+        //    {
+        //        randomRoom = Random.Range(0, rooms.actualRooms.Length);
+        //        Instantiate(rooms.actualRooms[randomRoom], transform.position, rooms.actualRooms[randomRoom].transform.rotation);
+        //    }
+        //    else if (roomKind == 3)
+        //    {
+        //        randomRoom = Random.Range(0, rooms.actualRooms.Length);
+        //        Instantiate(rooms.actualRooms[randomRoom], transform.position, rooms.actualRooms[randomRoom].transform.rotation);
+        //    }
+        //    else if (roomKind == 4)
+        //    {
+        //        randomRoom = Random.Range(0, rooms.actualRooms.Length);
+        //        Instantiate(rooms.actualRooms[randomRoom], transform.position, rooms.actualRooms[randomRoom].transform.rotation);
+        //    }
+        //}
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == ("SpawnPoints"))
+        if (other.gameObject)
         {
-                if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false && other.gameObject != null)
-                {
-                    Instantiate(rooms.Block, transform.position, Quaternion.identity);
-                    Destroy(gameObject);
-                }
-                spawned = true;
-            
+            Destroy(this.gameObject);
         }
     }
 }

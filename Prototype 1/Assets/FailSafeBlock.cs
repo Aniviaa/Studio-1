@@ -6,7 +6,7 @@ public class FailSafeBlock : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Room")
+        if (other.gameObject)
         {
             Destroy(this.gameObject);
         }

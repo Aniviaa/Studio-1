@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class RoomsArrays : MonoBehaviour {
 
+
+    /** 
+     * Remember to look up ? operator
+     * */
+    
     public GameObject startRoom;
     public GameObject respawnStartRoom;
     public GameObject[] roomsKindRight;
     public GameObject[] roomsKindBottom;
     public GameObject[] roomsKindTop;
     public GameObject[] roomsKindLeft;
+
+    public GameObject[] actualRooms;
+    public GameObject[] halls;
 
     public GameObject Block;
 
