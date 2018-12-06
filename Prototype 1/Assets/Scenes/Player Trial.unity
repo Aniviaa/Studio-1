@@ -2320,6 +2320,23 @@ MonoBehaviour:
   SlowMoSkill: {fileID: 937559606}
   AoESkill: {fileID: 767400143}
   slowMoTime: {fileID: 475700916}
+--- !u!1 &1343694903 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1919781858089252, guid: 3cf7b4b55a071f447bddf970e0f27493,
+    type: 2}
+  m_PrefabInternal: {fileID: 278598204}
+--- !u!65 &1343694907
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1343694903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08425929, y: 0.036689594, z: 0.028458005}
+  m_Center: {x: -0.000000029802322, y: 0.0018844091, z: 0.012505856}
 --- !u!1 &1847444190
 GameObject:
   m_ObjectHideFlags: 0

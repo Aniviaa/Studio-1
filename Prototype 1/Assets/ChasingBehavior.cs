@@ -84,7 +84,7 @@ public class ChasingBehavior : MonoBehaviour {
 
     public void EnemyPatrol()
     {
-        
+        lookAtTarget = true;
         if (lookAtTarget)
         {
             gameObject.transform.LookAt(patrolSpots[randomPatrolSpot].position);
