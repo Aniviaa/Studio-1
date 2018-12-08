@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -735,6 +735,10 @@ MonoBehaviour:
   enemyHealth: 50
   enemyAttack: 10
   inRange: 0
+  dead: 0
+  weaponDropped: 0
+  weaponChosen: 0
+  weaponDrops: []
 --- !u!114 &528112616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1487,6 +1491,10 @@ MonoBehaviour:
   enemyHealth: 100
   enemyAttack: 0
   inRange: 0
+  dead: 0
+  weaponDropped: 0
+  weaponChosen: 0
+  weaponDrops: []
 --- !u!1001 &823498355
 Prefab:
   m_ObjectHideFlags: 0
@@ -1723,6 +1731,10 @@ MonoBehaviour:
   enemyHealth: 50
   enemyAttack: 10
   inRange: 0
+  dead: 0
+  weaponDropped: 0
+  weaponChosen: 0
+  weaponDrops: []
 --- !u!114 &992743481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2012,6 +2024,10 @@ MonoBehaviour:
   enemyHealth: 100
   enemyAttack: 0
   inRange: 0
+  dead: 0
+  weaponDropped: 0
+  weaponChosen: 0
+  weaponDrops: []
 --- !u!1 &1092217208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,6 +2616,10 @@ MonoBehaviour:
   enemyHealth: 50
   enemyAttack: 10
   inRange: 0
+  dead: 0
+  weaponDropped: 0
+  weaponChosen: 0
+  weaponDrops: []
 --- !u!1 &2123729046 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100028, guid: 859c3def7b0fdca4ba4a59bb97a3cb47,
