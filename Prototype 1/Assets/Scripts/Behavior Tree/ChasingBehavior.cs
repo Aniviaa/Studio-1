@@ -20,7 +20,6 @@ public class ChasingBehavior : MonoBehaviour {
     public float Mass = 15;
     public float MaxVelocity = 10;
     public float MaxForce = 15;
-
     private Vector3 velocity;
     
     void Start ()
@@ -44,7 +43,7 @@ public class ChasingBehavior : MonoBehaviour {
 
         if (GetComponent<EnemyScript>().enemyHealth <= 20 && !dead)
         {
-            flee();
+            Flee();
         }
 
         if (GetComponent<EnemyScript>().enemyHealth <= 0)
@@ -155,7 +154,7 @@ public class ChasingBehavior : MonoBehaviour {
         }
     }
 
-    void flee()
+    void Flee()
     {
         enemyAnimator.SetBool("Attack", false);
         enemyAnimator.SetBool("Idle", false);

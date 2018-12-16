@@ -2,15 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flee : MonoBehaviour {
+public class Flee : Node
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public override void Execute(EnemyBehaviorTree EBT)
+    {
+        if (EBT.GetComponent<EnemyScript>().enemyHealth <= 30 && EBT.GetComponent<EnemyScript>().enemyHealth > 0)
+        {
+            Debug.Log("Fleeing");
+            EBT.enemyAnimator.SetBool("Attack", false);
+            EBT.enemyAnimator.SetBool("Idle", false);
+            EBT.enemyAnimator.SetBool("Walk", true);
+            EBT.enemyAnimator.SetBool("Dead", false);
+
+            var desiredVelocity = EBT.player.transform.position - EBT.transform.position;
+            desiredVelocity = desiredVelocity.normalized * EBT.MaxVelocity;
+
+            var steering = desiredVelocity - EBT.velocity;
+            steering = Vector3.ClampMagnitude(steering, EBT.MaxForce);
+            steering /= EBT.Mass;
+
+            EBT.velocity = Vector3.ClampMagnitude(EBT.velocity + steering, EBT.MaxVelocity) / 2;
+            if (EBT.player.GetComponent<PlayerController>().slowMo)
+            {
+                EBT.velocity = EBT.velocity / 2.5f;
+            }
+            EBT.transform.position -= EBT.velocity * Time.deltaTime;
+            EBT.transform.forward = -EBT.velocity.normalized;
+
+            currentResult = Result.running;
+
+            if (Vector3.Distance(EBT.transform.position, EBT.player.transform.position) >= EBT.maximumDistance)
+            {
+                currentResult = Result.success;
+            }
+            return;
+        }
+
+        else
+        {
+            currentResult = Result.failure;
+            Debug.Log("FLEE FAILED");
+        }
+    }
+
+
 }

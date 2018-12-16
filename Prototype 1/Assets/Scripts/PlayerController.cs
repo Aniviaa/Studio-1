@@ -137,6 +137,11 @@ public class PlayerController : MonoBehaviour {
             playerRot = Quaternion.LookRotation(lookAtTarget);
             moving = true;
 
+            playerAnimator.SetBool("Walk", true);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("Attack", false);
+
         }
     }
 

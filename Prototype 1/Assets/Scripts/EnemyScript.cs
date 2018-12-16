@@ -22,7 +22,6 @@ public class EnemyScript : MonoBehaviour {
 	
 	void Update ()
     {
-        dead = CBScript.dead;
 
         if (dead && !weaponDropped)
         {
