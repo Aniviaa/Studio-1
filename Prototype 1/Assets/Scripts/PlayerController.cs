@@ -128,13 +128,19 @@ public class PlayerController : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1000))
+        if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "Ground")
         {
-            targetPosition =  hit.point;
+
+            targetPosition = hit.point;
             targetPosition.y = this.transform.position.y;
-            lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y , targetPosition.z - transform.position.z);
+            lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y, targetPosition.z - transform.position.z);
             playerRot = Quaternion.LookRotation(lookAtTarget);
             moving = true;
+
+            playerAnimator.SetBool("Walk", true);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("Attack", false);
 
         }
     }
@@ -192,6 +198,8 @@ public class PlayerController : MonoBehaviour {
                     playerAnimator.SetBool("Run", false);
                     playerAnimator.SetBool("Idle", false);
                     playerAnimator.SetBool("Attack", true);
+
+                    KnockBack(20);
                 }
 
 
@@ -205,6 +213,7 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log("Heal Skill");
                     currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount;
                     playerHealth += healAmount;
+                    KnockBack(20);
                 }
             }
         }
@@ -220,10 +229,21 @@ public class PlayerController : MonoBehaviour {
             foreach (GameObject enemylist in rangeCylinder.gameObject.GetComponent<AoECheck>().enemyAOEList)
             {
                 enemylist.gameObject.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
+                Vector3 pushDirection = enemylist.gameObject.transform.position - transform.position;
+                pushDirection = pushDirection.normalized;
+                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 30 * 1000);
+
             }
             
 
         }
+    }
+
+    void KnockBack(float force)
+    {
+        Vector3 pushDirection = currentEnemy.transform.position - transform.position;
+        pushDirection = pushDirection.normalized;
+        currentEnemy.GetComponent<Rigidbody>().AddForce(pushDirection * force * 1000);
     }
 
     private float Distance()
