@@ -5,7 +5,7 @@ using UnityEngine;
 public class Flee : Node
 {
 
-    public override void Execute(EnemyBehaviorTree EBT)
+    public override Result Execute(EnemyBehaviorTree EBT)
     {
         if (EBT.GetComponent<EnemyScript>().enemyHealth <= 30 && EBT.GetComponent<EnemyScript>().enemyHealth > 0)
         {
@@ -30,19 +30,13 @@ public class Flee : Node
             EBT.transform.position -= EBT.velocity * Time.deltaTime;
             EBT.transform.forward = -EBT.velocity.normalized;
 
-            currentResult = Result.running;
-
-            if (Vector3.Distance(EBT.transform.position, EBT.player.transform.position) >= EBT.maximumDistance)
-            {
-                currentResult = Result.success;
-            }
-            return;
+            return Result.success;
         }
 
         else
         {
-            currentResult = Result.failure;
             Debug.Log("FLEE FAILED");
+            return Result.failure;
         }
     }
 

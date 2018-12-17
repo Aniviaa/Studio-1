@@ -35,11 +35,6 @@ public class EnemyBehaviorTree : MonoBehaviour{
     void Update()
     {
         root.Execute(this);
-
-        if (root.currentResult == Node.Result.failure)
-        {
-            AddChildren();
-        }
     }
 
     void AddChildren()
@@ -61,5 +56,23 @@ public class EnemyBehaviorTree : MonoBehaviour{
 
         movementSelector.childrenNodes.Add(new Patrol());
         movementSelector.childrenNodes.Add(new Wander());
+    }
+
+    public bool CheckingDistanceMinimum()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) >= minimumDistance)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool CheckingDistanceMaximum()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) <= maximumDistance)
+        {
+            return true;
+        }
+        return false;
     }
 }

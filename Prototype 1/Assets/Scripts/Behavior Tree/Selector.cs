@@ -5,26 +5,27 @@ using UnityEngine;
 public class Selector : Node
 {
 
-    public override void Execute(EnemyBehaviorTree EBT)
+    public override Result Execute(EnemyBehaviorTree EBT)
     {
         for (int i = 0; i < childrenNodes.Count; i++)
         {
-            if (childrenNodes[i].currentResult == Result.running)
+            if (childrenNodes[i].Execute(EBT) == Result.success)
             {
-                currentResult = Result.running;
-                childrenNodes[i].Execute(EBT);
-                return;
+                //currentResult = Result.success;
+                return Result.success;
             }
 
-            else if (childrenNodes[i].currentResult == Result.success)
+
+            else if (childrenNodes[i].Execute(EBT) == Result.running)
             {
-                currentResult = Result.success;
-                return;
+                //currentResult = Result.running;
+                childrenNodes[i].Execute(EBT);
             }
         }
 
-        currentResult = Result.failure;
-        return;
+        //currentResult = Result.failure;
+        return Result.failure;
+
     }
 
 }

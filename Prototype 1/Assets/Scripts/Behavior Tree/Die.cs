@@ -6,11 +6,11 @@ public class Die : Node {
 
 
 
-    public override void Execute(EnemyBehaviorTree EBT)
+    public override Result Execute(EnemyBehaviorTree EBT)
     {
         if (EBT.GetComponent<EnemyScript>().enemyHealth > 0)
         {
-            currentResult = Result.failure;
+            return Result.failure;
         }
         else
         {
@@ -18,15 +18,12 @@ public class Die : Node {
 
             EBT.transform.LookAt(EBT.player.transform.position);
 
-
-
             EBT.enemyAnimator.SetBool("Attack", false);
             EBT.enemyAnimator.SetBool("Idle", false);
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Dead", true);
 
-            currentResult = Result.success;
+            return Result.success;
         }
-
     }
 }

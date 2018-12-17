@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class Wander : Node
 {
-
-
-    public override void Execute(EnemyBehaviorTree EBT)
+    public override Result Execute(EnemyBehaviorTree EBT)
     {
-        Debug.Log("WANDERING");
 
-        if (Vector3.Distance(EBT.transform.position, EBT.player.transform.position) > EBT.minimumDistance)// Checking if close
-        {
-            Debug.Log(Vector3.Distance(EBT.transform.position, EBT.player.transform.position));
-            currentResult = Result.failure;
-        }
+        Debug.Log("WANDERING SUCCESS");
+        return Result.success;
     }
 }

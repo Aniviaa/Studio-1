@@ -569,7 +569,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4247642217141788, guid: 90069d6387b59934d95f02f64fe6c503, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -102.8
+      value: -97.9
       objectReference: {fileID: 0}
     - target: {fileID: 4247642217141788, guid: 90069d6387b59934d95f02f64fe6c503, type: 2}
       propertyPath: m_LocalPosition.y
@@ -686,15 +686,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 773773951}
   enemyAnimator: {fileID: 2140332528}
-  patrolSpots:
-  - {fileID: 740650521}
-  - {fileID: 248049413}
-  - {fileID: 1117647615}
-  - {fileID: 1208102378}
+  patrolSpots: []
   randomPatrolSpot: 0
-  enemySpeed: 6
+  enemySpeed: 2
   minimumDistance: 10
-  maximumDistance: 40
+  maximumDistance: 60
   dead: 0
   done: 0
   enemyMoving: 0

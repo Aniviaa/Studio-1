@@ -5,25 +5,22 @@ using UnityEngine;
 public class Sequencer : Node
 {
 
-    public override void Execute(EnemyBehaviorTree EBT)
+    public override Result Execute(EnemyBehaviorTree EBT)
     {
         for (int i = 0; i < childrenNodes.Count; i++)
         {
-            if (childrenNodes[i].currentResult == Result.running)
+            if (childrenNodes[i].Execute(EBT) == Result.running)
             {
-                currentResult = Result.running;
                 childrenNodes[i].Execute(EBT);
-                return;
+                return Result.running;
             }
 
-            else if (childrenNodes[i].currentResult == Result.failure)
+            else if (childrenNodes[i].Execute(EBT) == Result.failure)
             {
-                currentResult = Result.failure;
-                return;
+                return Result.failure;
             }
         }
-
-        currentResult = Result.success;
-        return;
+        
+        return Result.success;
     }
 }

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class CheckRange : Node {
 
-    public override void Execute(EnemyBehaviorTree EBT)
+    public override Result Execute(EnemyBehaviorTree EBT)
     {
-        if (Vector3.Distance(transform.position, EBT.player.transform.position) >= EBT.maximumDistance) // Checking if its too far
+        if (EBT.CheckingDistanceMaximum()) // Checking if its too far
         {
-            currentResult = Result.failure;
+            return Result.failure;
         }
-        else if (Vector3.Distance(transform.position, EBT.player.transform.position) > EBT.minimumDistance)// Checking if its close enough
+        else if (EBT.CheckingDistanceMinimum())// Checking if its close enough
         {
-            currentResult = Result.success;
+            return Result.success;
         }
+        return Result.success;
     }
 }

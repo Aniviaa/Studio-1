@@ -6,21 +6,20 @@ public class Patrol : Node
 
 { 
 
-    public override void Execute(EnemyBehaviorTree EBT)
+    public override Result Execute(EnemyBehaviorTree EBT)
     {
-        if (EBT.patrolSpots.Length == 0)
+        if (EBT.CheckingDistanceMaximum() || EBT.patrolSpots.Length == 0)// Checking if close
         {
-            currentResult = Result.failure;
-        }
-        else if (Vector3.Distance(EBT.transform.position, EBT.player.transform.position) < EBT.minimumDistance)// Checking if close
-        {
-            currentResult = Result.failure;
-            Debug.Log("PATROLLING FAILED");
+            return Result.failure;
         }
         else
         {
+            EBT.enemyAnimator.SetBool("Attack", false);
+            EBT.enemyAnimator.SetBool("Idle", false);
+            EBT.enemyAnimator.SetBool("Walk", true);
+            EBT.enemyAnimator.SetBool("Dead", false);
+            Debug.Log("PATROLLING Running");
 
-            
             EBT.lookAtTarget = true;
             if (EBT.lookAtTarget)
             {
@@ -52,10 +51,7 @@ public class Patrol : Node
                     EBT.enemyAnimator.SetBool("Dead", false);
                 }
             }
-
-            currentResult = Result.running;
-
-
         }
+        return Result.success;
     }
 }
