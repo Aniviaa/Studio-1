@@ -10,6 +10,7 @@ public class Patrol : Node
     {
         if (EBT.CheckingDistanceMaximum() || EBT.patrolSpots.Length == 0)// Checking if close
         {
+            Debug.Log("Patrol Failed");
             return Result.failure;
         }
         else
