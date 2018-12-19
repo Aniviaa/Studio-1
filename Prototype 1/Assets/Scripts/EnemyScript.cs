@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
-
-
     public int enemyHealth;
     public int enemyAttack;
     public bool inRange;
@@ -22,7 +20,6 @@ public class EnemyScript : MonoBehaviour {
 	
 	void Update ()
     {
-
         if (dead && !weaponDropped)
         {
             ChooseWeapon();
@@ -36,6 +33,4 @@ public class EnemyScript : MonoBehaviour {
         Instantiate(weaponDrops[weaponChosen], enemyPosition, Quaternion.identity);
         weaponDropped = true;
     }
-
-
 }

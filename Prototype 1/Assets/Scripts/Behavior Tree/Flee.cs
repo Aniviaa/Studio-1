@@ -10,6 +10,7 @@ public class Flee : Node
         if (EBT.GetComponent<EnemyScript>().enemyHealth <= 30 && EBT.GetComponent<EnemyScript>().enemyHealth > 0)
         {
             Debug.Log("Fleeing");
+
             EBT.enemyAnimator.SetBool("Attack", false);
             EBT.enemyAnimator.SetBool("Idle", false);
             EBT.enemyAnimator.SetBool("Walk", true);
@@ -39,6 +40,4 @@ public class Flee : Node
             return Result.failure;
         }
     }
-
-
 }

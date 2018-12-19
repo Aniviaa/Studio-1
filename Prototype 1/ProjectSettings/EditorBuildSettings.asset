@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Prison.unity
+    guid: 172b801e23de2cd41addedc3a6dee13b
+  - enabled: 1
+    path: Assets/Sacrificial Room.unity
+    guid: 2a5719ddc43583946b565d95b7037a39
   m_configObjects: {}

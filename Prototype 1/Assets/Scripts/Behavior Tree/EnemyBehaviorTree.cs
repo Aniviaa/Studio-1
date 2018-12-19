@@ -36,13 +36,15 @@ public class EnemyBehaviorTree : MonoBehaviour{
     {
         root.Execute(this);
     }
-
+    /// <summary>
+    /// Remember to look up Delegates and use them for functions.
+    /// </summary>
     void AddChildren()
     {
         root = new Selector();// First Selector
         Node healthCheck = new Selector();// Second Selector Left
         Node movementSelector = new Selector();// Third Selector
-        Node attackSequence = new Sequencer();
+        Node attackSequence = new Sequencer();//Melee Enemy Sequencer
 
         root.childrenNodes.Add(healthCheck);
         root.childrenNodes.Add(movementSelector);
@@ -60,7 +62,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
 
     public bool CheckingDistanceMinimum()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) >= minimumDistance)
+        if (Vector3.Distance(transform.position, player.transform.position) <= minimumDistance)
         {
             return true;
         }
