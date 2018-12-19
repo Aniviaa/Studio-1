@@ -3,12 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - SpawnPoints
-  - MainRoom
-  - Room
-  - Ground
-  - Enemy
+  tags: []
   layers:
   - Default
   - TransparentFX
