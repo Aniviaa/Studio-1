@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log("Heal Skill");
                     currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount;
                     playerHealth += healAmount;
-                    KnockBack(20);
+                    KnockBack(300);
                 }
             }
         }
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour {
                 enemylist.gameObject.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
                 Vector3 pushDirection = enemylist.gameObject.transform.position - transform.position;
                 pushDirection = pushDirection.normalized;
-                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 30 * 1000);
+                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 500);
 
             }
             
@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour {
     {
         Vector3 pushDirection = currentEnemy.transform.position - transform.position;
         pushDirection = pushDirection.normalized;
-        currentEnemy.GetComponent<Rigidbody>().AddForce(pushDirection * force * 1000);
+        currentEnemy.GetComponent<Rigidbody>().AddForce(pushDirection * force);
     }
 
     private float Distance()

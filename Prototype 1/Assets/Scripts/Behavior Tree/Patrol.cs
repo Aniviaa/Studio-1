@@ -27,7 +27,7 @@ public class Patrol : Node
             EBT.enemyMoving = true;
             EBT.transform.position = Vector3.MoveTowards(EBT.transform.position, EBT.patrolSpots[EBT.randomPatrolSpot].position, EBT.enemySpeed * Time.deltaTime);
 
-            if (Vector3.Distance(EBT.transform.position, EBT.patrolSpots[EBT.randomPatrolSpot].position) <= 10)
+            if (Vector3.Distance(EBT.transform.position, EBT.patrolSpots[EBT.randomPatrolSpot].position) <= 1)
             //This is so that when the enemy gets to the patrol spot, it stops even if it doesnt EXACTLY hit the
             {
                 EBT.enemyMoving = false;
@@ -35,6 +35,7 @@ public class Patrol : Node
                 {
                     EBT.enemyMoving = true;
                     EBT.lookAtTarget = true;
+
                     EBT.randomPatrolSpot = Random.Range(0, EBT.patrolSpots.Length);
                     EBT.idleTime = EBT.patrolTime;
                 }

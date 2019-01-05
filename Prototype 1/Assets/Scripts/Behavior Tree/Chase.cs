@@ -27,10 +27,8 @@ public class Chase : Node
         }
         else if (EBT.CheckingDistanceMinimum())// Checking if right next to him
         {
-            Debug.Log("Chase Succeed");
             return Result.success;
         }
-        Debug.Log("Chase Failed");
         return Result.failure;
     }
 }

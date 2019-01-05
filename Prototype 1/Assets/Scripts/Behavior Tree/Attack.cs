@@ -16,14 +16,12 @@ public class Attack : Node
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Dead", false);
             EBT.player.GetComponent<PlayerController>().playerHealth -= EBT.GetComponent<EnemyScript>().enemyAttack;
-            Debug.Log("This Is Normal Attack");
 
             return Result.success;
         }
 
         else
 
-        Debug.Log("Normal Attack Failed");
             return Result.failure;
     }
 }
