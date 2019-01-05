@@ -21,8 +21,6 @@ public class Die : Node
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Dead", true);
 
-            Debug.Log("Enemy Died");
-
             return Result.success;
         }
     }

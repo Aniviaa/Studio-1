@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBehaviorTree : MonoBehaviour{
 
     public GameObject player;
+    public GameObject arrow;
     public Animator enemyAnimator;
     public Transform[] patrolSpots;
     public int randomPatrolSpot;
@@ -25,6 +26,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public Node root;
     public Node healthCheck;
     public Node movementSelector;
+    public Node attackSelector;
     public Node attackSequence;
 
     void Start()
@@ -44,6 +46,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
         root = new Selector();// First Selector
         Node healthCheck = new Selector();// Second Selector Left
         Node movementSelector = new Selector();// Third Selector
+        Node attackSelector = new Selector();
         Node attackSequence = new Sequencer();//Melee Enemy Sequencer
 
         root.childrenNodes.Add(healthCheck);
@@ -54,7 +57,10 @@ public class EnemyBehaviorTree : MonoBehaviour{
         healthCheck.childrenNodes.Add(new Die());
 
         attackSequence.childrenNodes.Add(new Chase());
-        attackSequence.childrenNodes.Add(new Attack());
+        attackSequence.childrenNodes.Add(attackSelector);
+
+        attackSelector.childrenNodes.Add(new Attack());
+        attackSelector.childrenNodes.Add(new RangedAttack());
 
         movementSelector.childrenNodes.Add(new Patrol());
         movementSelector.childrenNodes.Add(new Wander());

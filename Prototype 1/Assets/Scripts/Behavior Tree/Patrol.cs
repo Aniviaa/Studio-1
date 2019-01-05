@@ -10,7 +10,6 @@ public class Patrol : Node
     {
         if (EBT.CheckingDistanceMaximum() || EBT.patrolSpots.Length == 0)// Checking if close
         {
-            Debug.Log("Patrol Failed");
             return Result.failure;
         }
         else
@@ -19,7 +18,6 @@ public class Patrol : Node
             EBT.enemyAnimator.SetBool("Idle", false);
             EBT.enemyAnimator.SetBool("Walk", true);
             EBT.enemyAnimator.SetBool("Dead", false);
-            Debug.Log("PATROLLING Running");
 
             EBT.lookAtTarget = true;
             if (EBT.lookAtTarget)
