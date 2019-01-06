@@ -20,9 +20,7 @@ public class Die : Node
             EBT.enemyAnimator.SetBool("Idle", false);
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Dead", true);
-
-            Debug.Log("Enemy Died");
-
+            EBT.GetComponent<EnemyBehaviorTree>().enabled = false;
             return Result.success;
         }
     }

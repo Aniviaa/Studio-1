@@ -6,8 +6,6 @@ public class Wander : Node
 {
     public override Result Execute(EnemyBehaviorTree EBT)
     {
-
-        Debug.Log("WANDERING SUCCESS");
         return Result.success;
     }
 }
