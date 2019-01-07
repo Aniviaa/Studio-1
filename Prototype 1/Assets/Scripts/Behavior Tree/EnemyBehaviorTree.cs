@@ -7,6 +7,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public GameObject player;
     public Animator enemyAnimator;
     public Transform[] patrolSpots;
+    public GameObject arrow;
     public int randomPatrolSpot;
     public float enemySpeed;
     public int minimumDistance;
@@ -15,6 +16,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public bool done;
     public bool enemyMoving;
     public bool lookAtTarget;
+    public bool ranged;
     public float idleTime;
     public float patrolTime;
     public float Mass = 15;
