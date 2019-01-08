@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
     public float slowMoSkillTimer;
     public float healSkillTimer;
     public float AoESkillTimer;
+    public float slashTimer;
+    public float attackChoice;
     public int playerHealth;
     public int playerAttack;
     public int healAmount;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        slashTimer = 0;
         AoESkillTimer = 15;
         slowMoSkillTimer = 15;
         healSkillTimer = 15;
@@ -49,6 +52,13 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
         attackTimer += Time.deltaTime;
+        slashTimer += Time.deltaTime;
+
+        if (currentEnemy && slashTimer > 2)
+        {
+            playerAnimator.SetBool("Attack", false);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Debug.Log("Jump");
@@ -59,17 +69,26 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetMouseButton(1))
         {
             SetTargetPosition();
-            //Debug.Log("Clicked" + Distance());
             currentEnemy = null;
         }
         if (Input.GetMouseButton(0))
         {
             SetTargetEnemy();
+
+            if (currentEnemy && slashTimer > 2)
+            {
+                slashTimer = 0;
+                attackChoice = Random.Range(0 , 10);
+                playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
+                Debug.Log(attackChoice +" AND THEN THIS = " + playerAnimator.GetInteger("AttackChoice"));
+                SingleAttack();
+
+
+            }
         }
         if (moving)
         {
             Move();
-            //Debug.Log(transform.position);
         }
 
         if (Distance() >= 10)
@@ -125,7 +144,7 @@ public class PlayerController : MonoBehaviour {
 
     void SetTargetPosition()
     {
-
+        playerAnimator.SetBool("AOE", false);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -176,6 +195,32 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void SingleAttack()
+    {
+        if (!currentEnemy.GetComponent<EnemyScript>().inRange)
+        {
+            transform.LookAt(currentEnemy.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, speed * Time.deltaTime);
+        }
+        else
+        {
+
+
+            if (currentEnemy.GetComponent<EnemyScript>().inRange)
+            {
+                slashTimer = 0;
+                currentEnemy.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
+                this.transform.LookAt(currentEnemy.transform.position);
+                moving = false;
+                playerAnimator.SetBool("Walk", false);
+                playerAnimator.SetBool("Run", false);
+                playerAnimator.SetBool("Idle", false);
+                playerAnimator.SetBool("Attack", true);
+                //KnockBack(20);
+            }
+        }
+    }
+
     void Attack()
     {
         if (currentEnemy != null)
@@ -189,7 +234,7 @@ public class PlayerController : MonoBehaviour {
             {
 
 
-                if (attackTimer >= 3 && currentEnemy.GetComponent<EnemyScript>().inRange)
+               /** if (attackTimer >= 3 && currentEnemy.GetComponent<EnemyScript>().inRange)
                 {
                     attackTimer = 0;
                     currentEnemy.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
@@ -201,7 +246,7 @@ public class PlayerController : MonoBehaviour {
                     playerAnimator.SetBool("Attack", true);
 
                     //KnockBack(20);
-                }
+                }**/
 
 
                 if (Input.GetKeyDown(KeyCode.Q) && currentEnemy.GetComponent<EnemyScript>().inRange && healSkillTimer >= 15)
@@ -232,9 +277,13 @@ public class PlayerController : MonoBehaviour {
                 enemylist.gameObject.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
                 Vector3 pushDirection = enemylist.gameObject.transform.position - transform.position;
                 pushDirection = pushDirection.normalized;
-                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 500);
-
+                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 250);
             }
+                playerAnimator.SetBool("Walk", false);
+                playerAnimator.SetBool("Run", false);
+                playerAnimator.SetBool("Idle", false);
+                playerAnimator.SetBool("Attack", false);
+                playerAnimator.SetBool("AOE", true);
             
 
         }
