@@ -12,7 +12,7 @@ public class Chase : Node
             EBT.transform.LookAt(EBT.player.transform);
             Vector3 enemyPosition = (EBT.player.gameObject.transform.position - EBT.transform.position).normalized;
             Vector3 Distance = new Vector3(enemyPosition.x, 0, enemyPosition.z);
-            EBT.transform.position += Distance * EBT.enemySpeed * Time.deltaTime;
+            EBT.transform.position += Distance * EBT.enemySpeed * Time.deltaTime * 0.1f;
 
             EBT.enemyAnimator.SetBool("Attack", false);
             EBT.enemyAnimator.SetBool("Idle", false);
