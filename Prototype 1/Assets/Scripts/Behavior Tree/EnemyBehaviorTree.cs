@@ -5,12 +5,13 @@ using UnityEngine;
 public class EnemyBehaviorTree : MonoBehaviour{
 
     public GameObject player;
+    public GameObject arrow;
+    public GameObject arrowPositions;
     public Animator enemyAnimator;
     public Transform[] patrolSpots;
-    public GameObject arrow;
     public int randomPatrolSpot;
     public float enemySpeed;
-    public int minimumDistance;
+    public float minimumDistance;
     public int maximumDistance;
     public bool dead;
     public bool done;
@@ -19,6 +20,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public bool ranged;
     public float idleTime;
     public float patrolTime;
+    public float attackTime;
     public float Mass = 15;
     public float MaxVelocity = 10;
     public float MaxForce = 15;
@@ -27,11 +29,13 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public Node root;
     public Node healthCheck;
     public Node movementSelector;
+    public Node attackSelector;
     public Node attackSequence;
 
     void Start()
     {
         AddChildren();
+        player = GameObject.Find("Player");
     }
 
     void Update()
@@ -46,6 +50,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
         root = new Selector();// First Selector
         Node healthCheck = new Selector();// Second Selector Left
         Node movementSelector = new Selector();// Third Selector
+        Node attackSelector = new Selector();
         Node attackSequence = new Sequencer();//Melee Enemy Sequencer
 
         root.childrenNodes.Add(healthCheck);
@@ -56,7 +61,10 @@ public class EnemyBehaviorTree : MonoBehaviour{
         healthCheck.childrenNodes.Add(new Die());
 
         attackSequence.childrenNodes.Add(new Chase());
-        attackSequence.childrenNodes.Add(new Attack());
+        attackSequence.childrenNodes.Add(attackSelector);
+
+        attackSelector.childrenNodes.Add(new Attack());
+        attackSelector.childrenNodes.Add(new RangedAttack());
 
         movementSelector.childrenNodes.Add(new Patrol());
         movementSelector.childrenNodes.Add(new Wander());

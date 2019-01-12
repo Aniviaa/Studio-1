@@ -10,6 +10,7 @@ public class EnemyScript : MonoBehaviour {
     ChasingBehavior CBScript;
     public bool dead;
     public bool weaponDropped;
+    public bool ranged;
     public int weaponChosen;
     public GameObject[] weaponDrops;
 

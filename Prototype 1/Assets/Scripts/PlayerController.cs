@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
         playerAnimator = GameObject.Find("Player").GetComponent<Animator>();
         playerRigid = GameObject.Find("Player").GetComponent<Rigidbody>();
         rotSpeed = 5;
-        speed = 10;
+        speed = 1;
         moving = false;
 	}
 	
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetMouseButton(1))
         {
             SetTargetPosition();
+            //Debug.Log("Clicked" + Distance());
             currentEnemy = null;
         }
         if (Input.GetMouseButton(0))
@@ -71,13 +72,13 @@ public class PlayerController : MonoBehaviour {
             //Debug.Log(transform.position);
         }
 
-        if (Distance() >= 40)
+        if (Distance() >= 10)
         {
-            speed = 15;
+            speed = 1.5f;
         }
         else
         {
-            speed = 10;
+            speed = 1;
         }
         SkillsCheck();
         Attack();
@@ -106,14 +107,14 @@ public class PlayerController : MonoBehaviour {
 
     void ChangeCycle()
     {
-        if (speed >= 15 && moving)
+        if (speed >= 1.5 && moving)
         {
             playerAnimator.SetBool("Walk", false);
             playerAnimator.SetBool("Idle", false);
             playerAnimator.SetBool("Run", true);
             playerAnimator.SetBool("Attack", false);
         }
-        else if(speed < 15 && moving)
+        else if(speed < 1.5 && moving)
         {
             playerAnimator.SetBool("Walk", true);
             playerAnimator.SetBool("Idle", false);
@@ -199,7 +200,7 @@ public class PlayerController : MonoBehaviour {
                     playerAnimator.SetBool("Idle", false);
                     playerAnimator.SetBool("Attack", true);
 
-                    KnockBack(20);
+                    //KnockBack(20);
                 }
 
 
@@ -213,7 +214,7 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log("Heal Skill");
                     currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount;
                     playerHealth += healAmount;
-                    KnockBack(20);
+                    KnockBack(300);
                 }
             }
         }
@@ -231,7 +232,7 @@ public class PlayerController : MonoBehaviour {
                 enemylist.gameObject.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
                 Vector3 pushDirection = enemylist.gameObject.transform.position - transform.position;
                 pushDirection = pushDirection.normalized;
-                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 30 * 1000);
+                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 500);
 
             }
             
@@ -243,7 +244,7 @@ public class PlayerController : MonoBehaviour {
     {
         Vector3 pushDirection = currentEnemy.transform.position - transform.position;
         pushDirection = pushDirection.normalized;
-        currentEnemy.GetComponent<Rigidbody>().AddForce(pushDirection * force * 1000);
+        currentEnemy.GetComponent<Rigidbody>().AddForce(pushDirection * force);
     }
 
     private float Distance()
