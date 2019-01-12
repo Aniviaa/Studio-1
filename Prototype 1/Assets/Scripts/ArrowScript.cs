@@ -6,6 +6,7 @@ public class ArrowScript : MonoBehaviour
 {
 
     public GameObject player;
+    public int arrowSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class ArrowScript : MonoBehaviour
     {
         Vector3 playerPosition = (player.gameObject.transform.position - transform.position).normalized;
         Vector3 Distance = new Vector3(playerPosition.x, 0, playerPosition.z);
-        transform.position += Distance * 1 * Time.deltaTime;
+        transform.position += Distance * arrowSpeed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
