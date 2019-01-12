@@ -19,15 +19,16 @@ public class ArrowScript : MonoBehaviour
     {
         Vector3 playerPosition = (player.gameObject.transform.position - transform.position).normalized;
         Vector3 Distance = new Vector3(playerPosition.x, 0, playerPosition.z);
-        transform.position += Distance * 1 * Time.deltaTime;
+        transform.position += Distance * 100 * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Destroyed Arrow");
-            Destroy(gameObject);
+            Debug.Log("False");
+            gameObject.SetActive(false);
+
         }
     }
 }
