@@ -17,6 +17,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public bool done;
     public bool enemyMoving;
     public bool lookAtTarget;
+    public bool ranged;
     public float idleTime;
     public float patrolTime;
     public float attackTime;
@@ -31,8 +32,11 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public Node attackSelector;
     public Node attackSequence;
 
+    public ObjectPool objectPool;
+
     void Start()
     {
+        objectPool = FindObjectOfType<ObjectPool>();
         AddChildren();
         player = GameObject.Find("Player");
     }
