@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour {
                 slashTimer = 0;
                 attackChoice = Random.Range(0 , 10);
                 playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
-                Debug.Log(attackChoice +" AND THEN THIS = " + playerAnimator.GetInteger("AttackChoice"));
                 SingleAttack();
 
 
@@ -200,7 +199,8 @@ public class PlayerController : MonoBehaviour {
         if (!currentEnemy.GetComponent<EnemyScript>().inRange)
         {
             transform.LookAt(currentEnemy.transform.position);
-            transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, speed * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, speed * Time.deltaTime);
+            //KnockBack(100);
         }
         else
         {
@@ -216,7 +216,8 @@ public class PlayerController : MonoBehaviour {
                 playerAnimator.SetBool("Run", false);
                 playerAnimator.SetBool("Idle", false);
                 playerAnimator.SetBool("Attack", true);
-                //KnockBack(20);
+                Debug.Log("Knocback");
+                KnockBack(250);
             }
         }
     }
@@ -228,7 +229,8 @@ public class PlayerController : MonoBehaviour {
             if (!currentEnemy.GetComponent<EnemyScript>().inRange)
             {
                 transform.LookAt(currentEnemy.transform.position);
-                transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, speed * Time.deltaTime);
+                Debug.Log("This one is being used");
+                //transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, speed * Time.deltaTime);
             }
             else
             {

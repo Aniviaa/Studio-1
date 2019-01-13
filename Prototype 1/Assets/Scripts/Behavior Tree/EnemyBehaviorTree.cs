@@ -31,8 +31,10 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public Node attackSelector;
     public Node attackSequence;
 
+    public ObjectPool objectPool;
     void Start()
     {
+        objectPool = FindObjectOfType<ObjectPool>();
         AddChildren();
         player = GameObject.Find("Player");
     }
