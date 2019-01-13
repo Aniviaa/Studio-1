@@ -9,8 +9,8 @@ public class ArrowScript : MonoBehaviour
     public Vector3 playerPosition;
     public Vector3 Distance;
     public float arrowInActive;
+    public int arrowSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("PlayerAttackPosition");
@@ -23,7 +23,6 @@ public class ArrowScript : MonoBehaviour
         arrowInActive = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         arrowInActive += Time.deltaTime;
@@ -35,13 +34,16 @@ public class ArrowScript : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+        playerPosition = (player.gameObject.transform.position - transform.position).normalized;
+        Distance = new Vector3(playerPosition.x, 0, playerPosition.z);
+        transform.position += Distance * 1 * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Destroyed Arrow");
+            Debug.Log("False");
             gameObject.SetActive(false);
         }
     }
