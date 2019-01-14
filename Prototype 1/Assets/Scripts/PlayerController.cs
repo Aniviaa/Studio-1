@@ -65,7 +65,29 @@ public class PlayerController : MonoBehaviour {
             playerRigid.AddForce(Vector3.up * 300);
             grounded = false;
         }
-
+        {//-------------------------------------------------------------Easter--Egg---------------------------------------------------------------------------//
+            if (Input.GetKeyUp(KeyCode.T))
+            {
+                playerAnimator.SetBool("Dance", true);
+                playerAnimator.SetBool("Idle", false);
+            }
+            else
+            {
+                playerAnimator.SetBool("Dance", false);
+                playerAnimator.SetBool("Idle", true);
+            }
+            if (Input.GetKeyUp(KeyCode.Y))
+            {
+                playerAnimator.SetBool("Clap", true);
+                playerAnimator.SetBool("Idle", false);
+            }
+            else
+            {
+                playerAnimator.SetBool("Clap", false);
+                playerAnimator.SetBool("Idle", true);
+            }
+            //-------------------------------------------------------------Easter--Egg---------------------------------------------------------------------------//
+        }
         if (Input.GetMouseButton(1))
         {
             SetTargetPosition();
