@@ -354,7 +354,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285169605}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -973,7 +973,7 @@ GameObject:
   - component: {fileID: 765890793}
   m_Layer: 0
   m_Name: Archer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1071,11 +1071,25 @@ MonoBehaviour:
   arrow: {fileID: 1875902332, guid: fe8937eb89f753d4caf86cc7e1165d54, type: 3}
   arrowPositions: {fileID: 285169605}
   enemyAnimator: {fileID: 765890797}
-  patrolSpots: []
+  patrolSpots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   randomPatrolSpot: 0
-  enemySpeed: 2
-  minimumDistance: 5
-  maximumDistance: 60
+  enemySpeed: 0.5
+  minimumDistance: 1
+  maximumDistance: 5
   dead: 0
   done: 0
   enemyMoving: 0
@@ -1092,6 +1106,8 @@ MonoBehaviour:
   movementSelector: {fileID: 0}
   attackSelector: {fileID: 0}
   attackSequence: {fileID: 0}
+  enemyScript: {fileID: 0}
+  objectPool: {fileID: 0}
 --- !u!114 &765890793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1111,7 +1127,11 @@ MonoBehaviour:
   weaponDropped: 0
   ranged: 1
   weaponChosen: 0
-  weaponDrops: []
+  weaponDrops:
+  - {fileID: 4493385550093688868, guid: ab62bbdfaf4c4944d81e2db6cdde6c55, type: 3}
+  - {fileID: 463477122288853558, guid: 0e83c84b77c18914695302ab9a4b3358, type: 3}
+  droppedCoin: {fileID: 0}
+  coinMovement: {x: 0, y: 0, z: 0}
 --- !u!1 &801022664
 GameObject:
   m_ObjectHideFlags: 0

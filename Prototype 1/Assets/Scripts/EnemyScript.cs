@@ -13,6 +13,8 @@ public class EnemyScript : MonoBehaviour {
     public bool ranged;
     public int weaponChosen;
     public GameObject[] weaponDrops;
+    public GameObject droppedCoin;
+    public Vector3 coinMovement;
 
 	void Start () 
     {
@@ -29,9 +31,17 @@ public class EnemyScript : MonoBehaviour {
 
     void ChooseWeapon()
     {
-        weaponChosen = Random.Range(0, 3);
-        Vector3 enemyPosition = transform.position;
-        Instantiate(weaponDrops[weaponChosen], enemyPosition, Quaternion.identity);
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log(weaponDropped);
+            weaponChosen = Random.Range(0, 1);
+            Vector3 enemyPosition = transform.position;
+            droppedCoin = weaponDrops[weaponChosen];
+            GameObject newCoin = Instantiate(droppedCoin, enemyPosition + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            coinMovement = (transform.up * 1f)+ (transform.forward * 1f) + (transform.right * Random.Range(-10, 10) * 0.5f);
+            newCoin.GetComponent<Rigidbody>().AddForce(coinMovement, ForceMode.Impulse);
+        }
         weaponDropped = true;
+     
     }
 }

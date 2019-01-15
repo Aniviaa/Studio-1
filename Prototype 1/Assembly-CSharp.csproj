@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CameraRaycast.cs" />
     <Compile Include="Assets\ClassSTuff\GameMenu.cs" />
     <Compile Include="Assets\ClassSTuff\HelpMenu.cs" />
     <Compile Include="Assets\ClassSTuff\MainMenu.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Scripts\Behavior Tree\Wander.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\CollectCoin.cs" />
     <Compile Include="Assets\Scripts\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\FailSafe.cs" />
     <Compile Include="Assets\Scripts\FailSafeBlock.cs" />

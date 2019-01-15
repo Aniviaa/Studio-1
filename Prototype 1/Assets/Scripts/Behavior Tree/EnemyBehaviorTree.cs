@@ -31,9 +31,12 @@ public class EnemyBehaviorTree : MonoBehaviour{
     public Node attackSelector;
     public Node attackSequence;
 
+    public EnemyScript enemyScript;
     public ObjectPool objectPool;
+
     void Start()
     {
+        enemyScript = GetComponentInParent<EnemyScript>();
         objectPool = FindObjectOfType<ObjectPool>();
         AddChildren();
         player = GameObject.Find("Player");
