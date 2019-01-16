@@ -21648,6 +21648,8 @@ MonoBehaviour:
   fadeMaterial: {fileID: 2100000, guid: fbd5309edcac8a9428ebd5f1d48dbea6, type: 2}
   originalMaterial: {fileID: 0}
   objectInWay: {fileID: 0}
+  originalObject: {fileID: 0}
+  timeNeeded: 0
 --- !u!1 &1421292898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 39380514386a1a84ba50155bffcd92af,
