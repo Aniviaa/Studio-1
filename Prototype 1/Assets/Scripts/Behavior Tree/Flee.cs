@@ -21,7 +21,7 @@ public class Flee : Node
             steering = Vector3.ClampMagnitude(steering, EBT.MaxForce);
             steering /= EBT.Mass;
 
-            EBT.velocity = Vector3.ClampMagnitude(EBT.velocity + steering, EBT.MaxVelocity) / 2;
+            EBT.velocity = Vector3.ClampMagnitude(EBT.velocity + steering, EBT.MaxVelocity) / 3;
             if (EBT.player.GetComponent<PlayerController>().slowMo)
             {
                 EBT.velocity = EBT.velocity / 2.5f;

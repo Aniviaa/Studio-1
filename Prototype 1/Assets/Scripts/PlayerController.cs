@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
+
+    public PlayerStatsTracker playerStatsScript;
 
     public Animator playerAnimator;
 
@@ -19,9 +22,12 @@ public class PlayerController : MonoBehaviour {
     public bool moving;
     public bool grounded;
     public bool slowMo;
+    public bool lifeSteal;
     public float attackTimer;
     public float slowMoTimer;
     public float slowMoSkillTimer;
+    public float lifestealTimer;
+    public float lifestealSkillTimer;
     public float healSkillTimer;
     public float AoESkillTimer;
     public float slashTimer;
@@ -29,15 +35,23 @@ public class PlayerController : MonoBehaviour {
     public int playerHealth;
     public int playerAttack;
     public int healAmount;
+    public int coinsAmount;
 
 	// Use this for initialization
 	void Start ()
     {
+        playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
+
+        
+
+        coinsAmount = playerStatsScript.coinsCollected;
         slashTimer = 0;
         AoESkillTimer = 15;
         slowMoSkillTimer = 15;
         healSkillTimer = 15;
+        lifestealSkillTimer = 15;
         slowMoTimer = 5;
+        lifestealTimer = 5;
         slowMo = false;
         playerHealth = 100;
         grounded = true;
@@ -51,6 +65,25 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (playerHealth >= 100)
+        {
+            playerHealth = 100;
+        }
+
+        healAmount = playerAttack / 2;
+
+        if (playerAttack != playerStatsScript.playerBasicDamage)
+        {
+            playerAttack = playerStatsScript.playerBasicDamage;
+            Debug.Log("Playerattack != BasicDamage");
+        }
+        if (!playerStatsScript)
+        {
+            playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
+        }
+        //playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
+        coinsAmount = playerStatsScript.coinsCollected;
+
         attackTimer += Time.deltaTime;
         slashTimer += Time.deltaTime;
 
@@ -59,12 +92,20 @@ public class PlayerController : MonoBehaviour {
             playerAnimator.SetBool("Attack", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+
+            //-------------------------------------------------------------Easter--Egg---------------------------------------------------------------------------//
+        if (Input.GetKey(KeyCode.Z))
         {
-            Debug.Log("Jump");
-            playerRigid.AddForce(Vector3.up * 300);
-            grounded = false;
+            SceneManager.LoadScene("Main Scene");
+            Debug.Log("Load Scene");
         }
+        if (Input.GetKey(KeyCode.X))
+        {
+            SceneManager.LoadScene("MainMenu");
+            Debug.Log("Load Scene");
+        }
+
+        //-------------------------------------------------------------Easter--Egg---------------------------------------------------------------------------//
 
         if (Input.GetMouseButton(1))
         {
@@ -108,6 +149,7 @@ public class PlayerController : MonoBehaviour {
     {
         slowMoSkillTimer += Time.deltaTime;
         healSkillTimer += Time.deltaTime;
+        lifestealSkillTimer += Time.deltaTime;
         AoESkillTimer += Time.deltaTime;
 
         if (slowMo)
@@ -119,6 +161,17 @@ public class PlayerController : MonoBehaviour {
             {
                 slowMo = false;
                 slowMoTimer = 6;
+            }
+        }
+        if (lifeSteal)
+        {
+            lifestealSkillTimer = 0;
+            lifestealTimer -= Time.deltaTime;
+
+            if (lifestealTimer <= 0)
+            {
+                lifeSteal = false;
+                lifestealTimer = 6;
             }
         }
     }
@@ -209,7 +262,16 @@ public class PlayerController : MonoBehaviour {
             if (currentEnemy.GetComponent<EnemyScript>().inRange)
             {
                 slashTimer = 0;
-                currentEnemy.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
+                if (lifeSteal)
+                {
+                    currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount;
+                    playerHealth += healAmount;
+                }
+                else
+                {
+                    currentEnemy.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
+                }
+
                 this.transform.LookAt(currentEnemy.transform.position);
                 moving = false;
                 playerAnimator.SetBool("Walk", false);
@@ -217,7 +279,7 @@ public class PlayerController : MonoBehaviour {
                 playerAnimator.SetBool("Idle", false);
                 playerAnimator.SetBool("Attack", true);
                 Debug.Log("Knocback");
-                KnockBack(250);
+                KnockBack(200);
             }
         }
     }
@@ -229,42 +291,38 @@ public class PlayerController : MonoBehaviour {
             if (!currentEnemy.GetComponent<EnemyScript>().inRange)
             {
                 transform.LookAt(currentEnemy.transform.position);
-                Debug.Log("This one is being used");
+                Debug.Log("This one is being used1111");
                 //transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, speed * Time.deltaTime);
             }
             else
             {
 
 
-               /** if (attackTimer >= 3 && currentEnemy.GetComponent<EnemyScript>().inRange)
-                {
-                    attackTimer = 0;
-                    currentEnemy.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
-                    this.transform.LookAt(currentEnemy.transform.position);
-                    moving = false;
-                    playerAnimator.SetBool("Walk", false);
-                    playerAnimator.SetBool("Run", false);
-                    playerAnimator.SetBool("Idle", false);
-                    playerAnimator.SetBool("Attack", true);
+                /** if (attackTimer >= 3 && currentEnemy.GetComponent<EnemyScript>().inRange)
+                 {
+                     attackTimer = 0;
+                     currentEnemy.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
+                     this.transform.LookAt(currentEnemy.transform.position);
+                     moving = false;
+                     playerAnimator.SetBool("Walk", false);
+                     playerAnimator.SetBool("Run", false);
+                     playerAnimator.SetBool("Idle", false);
+                     playerAnimator.SetBool("Attack", true);
 
-                    //KnockBack(20);
-                }**/
+                     //KnockBack(20);
+                 }**/
 
 
-                if (Input.GetKeyDown(KeyCode.Q) && currentEnemy.GetComponent<EnemyScript>().inRange && healSkillTimer >= 15)
-                {
-                    healSkillTimer = 0;
-                    if (playerHealth >= 100)
-                    {
-                        playerHealth = 100;
-                    }
-                    Debug.Log("Heal Skill");
-                    currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount;
-                    playerHealth += healAmount;
-                    KnockBack(300);
-                }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Q) && lifestealSkillTimer >= 15)
+        {
+            Debug.Log("Heal Skill111");
+            print(healSkillTimer);
+            lifeSteal = true;
+        }
+        
         if (Input.GetKeyDown(KeyCode.W) && slowMoTimer >= 0 && slowMoSkillTimer >= 15)
         {
             slowMo = true;

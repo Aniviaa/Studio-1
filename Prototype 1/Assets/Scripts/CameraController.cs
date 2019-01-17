@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour {
+public class CameraController : MonoBehaviour {
 
 
     public GameObject player;  //The offset of the camera to centrate the player in the X axis
@@ -15,15 +15,18 @@ public class CameraMovement : MonoBehaviour {
     private float movementx;
     private float movementz;
     public bool minus;
+    public bool zMinus;
 
     // Update is called once per frame
     private void Start()
     {
+        zMinus = true;
         this.transform.LookAt(player.transform.position);
     }
 
     void Update()
     {
+        this.transform.LookAt(player.transform.position);
         yRotation = player.transform.eulerAngles.y;
         if (yRotation >= 180 && minus)
         {
@@ -38,13 +41,19 @@ public class CameraMovement : MonoBehaviour {
         playervelocity = player.GetComponent<PlayerController>().speed;
         movementx = ((player.transform.position.x + offsetx - this.transform.position.x)) / maximumdistance;
         movementz = ((player.transform.position.z + offsetz - this.transform.position.z)) / maximumdistance;
-        this.transform.position += new Vector3((movementx * playervelocity * Time.deltaTime), 0, (movementz * playervelocity * Time.deltaTime));
+        this.transform.position += new Vector3((movementx * Time.deltaTime), 0, (movementz * Time.deltaTime));
 
-        if (player.GetComponent<PlayerController>().moving)
+        if (Vector3.Distance(player.transform.position, transform.position) <= 1.7 && zMinus)
         {
-            this.transform.eulerAngles = new Vector3(transform.eulerAngles.x, yRotation, transform.eulerAngles.z);
+            zMinus = false;
 
+            offsetz = -offsetz;
         }
+        if (Vector3.Distance(player.transform.position, transform.position) >= 2 && !zMinus)
+        {
+            zMinus = true;
+        }
+
     }
 }
 
