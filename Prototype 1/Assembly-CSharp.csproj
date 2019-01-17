@@ -115,6 +115,7 @@
     <Compile Include="Assets\Scripts\FailSafe.cs" />
     <Compile Include="Assets\Scripts\FailSafeBlock.cs" />
     <Compile Include="Assets\Scripts\GuardsTraining.cs" />
+    <Compile Include="Assets\Scripts\LineOfSight.cs" />
     <Compile Include="Assets\Scripts\NPCAnimations.cs" />
     <Compile Include="Assets\Scripts\NPCPatrol.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />

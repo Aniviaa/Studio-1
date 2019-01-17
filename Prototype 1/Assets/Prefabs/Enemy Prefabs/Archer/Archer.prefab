@@ -1814,9 +1814,10 @@ GameObject:
   - component: {fileID: 1616162803}
   - component: {fileID: 1616162802}
   - component: {fileID: 1616162801}
+  - component: {fileID: 5622108895818998989}
   m_Layer: 0
   m_Name: Archer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1939,6 +1940,7 @@ MonoBehaviour:
   movementSelector: {fileID: 0}
   attackSelector: {fileID: 0}
   attackSequence: {fileID: 0}
+  enemyScript: {fileID: 0}
   objectPool: {fileID: 0}
 --- !u!114 &1616162801
 MonoBehaviour:
@@ -1959,7 +1961,27 @@ MonoBehaviour:
   weaponDropped: 0
   ranged: 1
   weaponChosen: 0
-  weaponDrops: []
+  weaponDrops:
+  - {fileID: 4493385550093688868, guid: ab62bbdfaf4c4944d81e2db6cdde6c55, type: 3}
+  - {fileID: 463477122288853558, guid: 0e83c84b77c18914695302ab9a4b3358, type: 3}
+  droppedCoin: {fileID: 0}
+  coinMovement: {x: 0, y: 0, z: 0}
+--- !u!114 &5622108895818998989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616162800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f1a509d8c360c4185cdfa6f99e4b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  maxAngle: 32.13
+  maxRadius: 1.05
+  seenDistance: 1.95
 --- !u!1 &1617466741
 GameObject:
   m_ObjectHideFlags: 0

@@ -232,6 +232,14 @@ public class PlayerController : MonoBehaviour {
             {
                 currentEnemy = hit.transform.gameObject;
             }
+            if (hit.transform.gameObject.tag == "Merchant")
+            {
+                Debug.Log("Merchant");
+            }
+            if (hit.transform.gameObject.tag == "Stone")
+            {
+                SceneManager.LoadScene("Main Scene");
+            }
         }
     }
 
