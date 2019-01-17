@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject currentEnemy;
     public GameObject rangeCylinder;
     public GameObject stoneCenter;
-
+    public string sceneName;
+    public Scene currentScene;
     ShopPanel shopScript;
     Rigidbody playerRigid;
     Vector3 targetPosition;
@@ -71,6 +72,8 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
         if (playerHealth >= 100)
         {
             playerHealth = 100;
@@ -269,7 +272,15 @@ public class PlayerController : MonoBehaviour {
             //}
             if (hit.transform.gameObject.tag == "Stone" && inStoneRange)
             {
-                SceneManager.LoadScene("Main Scene");
+                if (sceneName == "MainMenu")
+                {
+                    SceneManager.LoadScene("Main Scene");
+                }
+                else if (sceneName == "Main Scene")
+                {
+                    SceneManager.LoadScene("level 2");
+                }
+                
             }
         }
     }
