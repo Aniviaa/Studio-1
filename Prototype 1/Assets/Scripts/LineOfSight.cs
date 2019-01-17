@@ -39,18 +39,16 @@ public class LineOfSight : MonoBehaviour {
 
     public  bool InLineOfSight(Transform checkingObject, Transform target, float maxAngle, float maxRadius)
     {
-       
 
-        
-            
         float distance = Vector3.Distance(target.position, checkingObject.position);
-        Debug.Log(distance);
+        //Debug.Log(distance);
         Vector3 directionBetween = (target.position - checkingObject.position).normalized;
 
         float angle = Vector3.Angle(checkingObject.forward, directionBetween);
         
-        if (angle <= maxAngle)
+        if (angle <= maxAngle && distance <= seenDistance)
         {
+            print(target.position - checkingObject.position);
             Ray ray = new Ray(checkingObject.position, target.position - checkingObject.position);
             RaycastHit hit;
 

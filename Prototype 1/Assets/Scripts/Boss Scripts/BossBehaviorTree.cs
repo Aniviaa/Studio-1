@@ -6,13 +6,14 @@ public class BossBehaviorTree : MonoBehaviour
 {
 
     public GameObject player;
+    public GameObject fireAttack;
     public float minimumDistance;
     public float maximumDistance;
     public float attackTime;
     public float enemySpeed;
+    public float fireTime;
     public int attackType;
     public int attackRange;
-    public int mana = 100;
     public bool moving;
 
     public BossNode root;
@@ -35,6 +36,8 @@ public class BossBehaviorTree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        fireTime += Time.deltaTime;
         attackType = attackRange = Random.Range(0, 10);
         attackTime += Time.deltaTime;
         if (!player)
@@ -43,6 +46,16 @@ public class BossBehaviorTree : MonoBehaviour
         }
         root.Execute(this);
         anim.SetInteger("AttackType", attackType);
+
+        if (fireTime <= 2)
+        {
+            fireAttack.SetActive(true);
+
+        }
+        else
+        {
+            fireAttack.SetActive(false);
+        }
     }
 
     public void AddChildren()
@@ -89,6 +102,10 @@ public class BossBehaviorTree : MonoBehaviour
         return false;
     }
 
-
+    public void FireEnable()
+    {
+        fireTime = 0;
+        Debug.Log("FIREEE");
+    }
 
 }

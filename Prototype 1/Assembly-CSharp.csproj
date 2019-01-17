@@ -100,7 +100,6 @@
     <Compile Include="Assets\Scripts\Boss Scripts\BossChase.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossDie.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossIdle.cs" />
-    <Compile Include="Assets\Scripts\Boss Scripts\BossManaCheck.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossMeleeAttack.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossNode.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossRangedAttack.cs" />

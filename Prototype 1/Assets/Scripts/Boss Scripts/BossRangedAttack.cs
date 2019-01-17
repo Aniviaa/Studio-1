@@ -20,7 +20,7 @@ public class BossRangedAttack : BossNode
             BBT.player.GetComponent<PlayerController>().playerHealth -= BBT.GetComponent<EnemyScript>().enemyAttack;
             //Instantiate(EBT.arrow, EBT.arrowPositions.transform.position, Quaternion.identity);
             //BBT.objectPool.Fire(BBT.arrowPositions);
-            if (BBT.attackTime >= 4)
+            if (BBT.attackTime >= 6)
             {
                 BBT.attackTime = 0;
             }
