@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: donjon_wall
-  m_Shader: {fileID: 4800000, guid: 3b02956c7f3faf4429bb7fe6305ad84c, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -73,12 +73,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.68
     - _GlossyReflections: 1
     - _HeightCtrlScale: 0.31
     - _HeightFadeMoss: 3.38
     - _HeightMoss: 1.02
-    - _Metallic: 0
+    - _Metallic: 0.39
     - _Mode: 0
     - _MossStrength: -1.26
     - _OcclusionStrength: 1

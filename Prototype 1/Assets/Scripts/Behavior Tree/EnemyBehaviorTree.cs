@@ -91,4 +91,10 @@ public class EnemyBehaviorTree : MonoBehaviour{
         }
         return false;
     }
+    public void KnockBack(float force)
+    {
+        Vector3 pushDirection = player.transform.position - transform.position;
+        pushDirection = pushDirection.normalized;
+        player.GetComponent<Rigidbody>().AddForce(pushDirection * force);
+    }
 }
