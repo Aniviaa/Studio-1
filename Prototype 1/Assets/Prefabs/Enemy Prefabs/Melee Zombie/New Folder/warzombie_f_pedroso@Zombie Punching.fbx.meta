@@ -194,11 +194,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.36522013
+      - time: 0.34553152
         functionName: KnockBack
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 0ca51c4176c96cb48bb7916c10beee0a,
-          type: 3}
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 100
         intParameter: 0
         messageOptions: 0

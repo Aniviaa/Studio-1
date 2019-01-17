@@ -7,7 +7,6 @@ TagManager:
   - Ground
   - Enemy
   - Wall
-  - Stone
   - Merchant
   layers:
   - Default
