@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject currentEnemy;
     public GameObject rangeCylinder;
 
+    ShopPanel shopScript;
     Rigidbody playerRigid;
     Vector3 targetPosition;
     Vector3 lookAtTarget;
@@ -41,9 +42,8 @@ public class PlayerController : MonoBehaviour {
 	void Start ()
     {
         playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
-
+        shopScript = FindObjectOfType<ShopPanel>();
         
-
         coinsAmount = playerStatsScript.coinsCollected;
         slashTimer = 0;
         AoESkillTimer = 15;
@@ -114,17 +114,19 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetMouseButton(0))
         {
+            
             SetTargetEnemy();
 
-            if (currentEnemy && slashTimer > 2)
+            if (currentEnemy && slashTimer > 1)
             {
-                slashTimer = 0;
+                transform.LookAt(currentEnemy.transform.position);
                 attackChoice = Random.Range(0 , 10);
                 playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
                 playerAnimator.SetBool("Walk", false);
                 playerAnimator.SetBool("Run", false);
                 playerAnimator.SetBool("Idle", false);
                 playerAnimator.SetBool("Attack", true);
+                slashTimer = 0;
                 //SingleAttack();
 
 
@@ -137,11 +139,11 @@ public class PlayerController : MonoBehaviour {
 
         if (Distance() >= 10)
         {
-            speed = 1.5f;
+            speed = 2f;
         }
         else
         {
-            speed = 1;
+            speed = 1.5f;
         }
         SkillsCheck();
         Attack();
@@ -231,6 +233,11 @@ public class PlayerController : MonoBehaviour {
             if (hit.transform.gameObject.tag == "Enemy")
             {
                 currentEnemy = hit.transform.gameObject;
+            }
+            if (hit.transform.gameObject.tag == "Merchant")
+            {
+                Debug.Log("Merchant");
+                shopScript.EnableShopPanel();
             }
         }
     }
