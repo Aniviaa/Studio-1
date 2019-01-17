@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CollectCoin : MonoBehaviour
 {
-    public PlayerController playerScript;
+    public PlayerStatsTracker playerScript;
     public int coinValue;
 
     void Start()
     {
-        playerScript = FindObjectOfType<PlayerController>();
+        playerScript = FindObjectOfType<PlayerStatsTracker>();
     }
 
     void Update()
@@ -21,7 +21,7 @@ public class CollectCoin : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            playerScript.coinsAmount += coinValue;
+            playerScript.coinsCollected += coinValue;
             Debug.Log("Coin Collected: " + coinValue);
             Destroy(gameObject);
         }

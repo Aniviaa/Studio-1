@@ -14,7 +14,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Sacrificial Room.unity
     guid: 2a5719ddc43583946b565d95b7037a39
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/dungeon mazetype.unity
     guid: ff934a6824eec1e43b6e263897e4bcb4
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5a644ba58ac687d42a892bd70f3e28cf
+  - enabled: 1
+    path: Assets/Scenes/Main Scene.unity
+    guid: 372a118c70207ad45b60d5769d2b9bdb
   m_configObjects: {}

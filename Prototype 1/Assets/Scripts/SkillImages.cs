@@ -9,6 +9,8 @@ public class SkillImages : MonoBehaviour {
     public Image SlowMoSkill;
     public Image AoESkill;
     public Text slowMoTime;
+    public Text lifestealTime;
+
 
     PlayerController pcScript;
 
@@ -26,18 +28,15 @@ public class SkillImages : MonoBehaviour {
 
     public void updateSkills()
     {
-        float healRatio = pcScript.healSkillTimer;
+        float healRatio = pcScript.lifestealSkillTimer;
         float slowMoRatio = pcScript.slowMoSkillTimer;
         float aoeRatio = pcScript.AoESkillTimer;
-        if (pcScript.slowMo)
-        {
-            slowMoTime.enabled = true;
-        }
-        else
-        {
-            slowMoTime.enabled = false;
-        }
-        slowMoTime.text = ""+(int)pcScript.slowMoTimer;
+
+        slowMoTime.enabled = pcScript.slowMo;
+        lifestealTime.enabled = pcScript.lifeSteal;
+
+        slowMoTime.text = "" + (int)pcScript.slowMoTimer;
+        lifestealTime.text = "" + (int)pcScript.lifestealTimer;
         HealSkill.fillAmount = healRatio / 15;
         SlowMoSkill.fillAmount = slowMoRatio / 15;
         AoESkill.fillAmount = aoeRatio / 15;
