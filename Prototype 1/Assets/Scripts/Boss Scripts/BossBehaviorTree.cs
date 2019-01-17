@@ -29,7 +29,6 @@ public class BossBehaviorTree : MonoBehaviour
     void Start()
     {
         moving = false;
-        player = GameObject.Find("Player");
         AddChildren();
     }
 
@@ -38,10 +37,12 @@ public class BossBehaviorTree : MonoBehaviour
     {
         attackType = attackRange = Random.Range(0, 10);
         attackTime += Time.deltaTime;
+        if (!player)
+        {
+            player = GameObject.Find("Player");
+        }
         root.Execute(this);
-        
         anim.SetInteger("AttackType", attackType);
-
     }
 
     public void AddChildren()
