@@ -22,6 +22,14 @@ public class ShopPanel : MonoBehaviour
         
     }
 
+    public void DisableAllPanels()
+    {
+        shopPanel.SetActive(false);
+        weaponPanel.SetActive(false);
+        lifestealPanel.SetActive(false);
+        slowmoPanel.SetActive(false);
+        aoePanel.SetActive(false);
+    }
     public void EnableShopPanel()
     {
         shopPanel.SetActive(true);
