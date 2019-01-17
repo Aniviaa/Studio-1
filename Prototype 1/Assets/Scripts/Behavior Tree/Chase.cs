@@ -22,11 +22,17 @@ public class Chase : Node
 
             if (EBT.CheckingDistanceMinimum())// Checking if right next to him
             {
+                EBT.enemyAnimator.SetBool("Walk", false);
+                EBT.enemyAnimator.SetBool("Attack", true);
+                Debug.Log("Reached Enemy");
                 return Result.success;
             }
         }
         else if (EBT.CheckingDistanceMinimum())// Checking if right next to him
         {
+            EBT.enemyAnimator.SetBool("Walk", false);
+            EBT.enemyAnimator.SetBool("Attack", true);
+            Debug.Log("Reached Enemy1");
             return Result.success;
         }
         return Result.failure;

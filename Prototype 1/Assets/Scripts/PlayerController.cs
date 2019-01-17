@@ -121,7 +121,11 @@ public class PlayerController : MonoBehaviour {
                 slashTimer = 0;
                 attackChoice = Random.Range(0 , 10);
                 playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
-                SingleAttack();
+                playerAnimator.SetBool("Walk", false);
+                playerAnimator.SetBool("Run", false);
+                playerAnimator.SetBool("Idle", false);
+                playerAnimator.SetBool("Attack", true);
+                //SingleAttack();
 
 
             }
@@ -274,10 +278,7 @@ public class PlayerController : MonoBehaviour {
 
                 this.transform.LookAt(currentEnemy.transform.position);
                 moving = false;
-                playerAnimator.SetBool("Walk", false);
-                playerAnimator.SetBool("Run", false);
-                playerAnimator.SetBool("Idle", false);
-                playerAnimator.SetBool("Attack", true);
+
                 Debug.Log("Knocback");
                 KnockBack(200);
             }
