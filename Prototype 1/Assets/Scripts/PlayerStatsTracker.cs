@@ -9,6 +9,8 @@ public class PlayerStatsTracker : MonoBehaviour
     public int coinsCollected;
     public int damageModifier;
     public int playerBasicDamage;
+    public int upgradeCost;
+    public int upgradeDamage;
     public bool attackIncreased;
     private static PlayerStatsTracker instance = null;
 
@@ -39,22 +41,14 @@ public class PlayerStatsTracker : MonoBehaviour
     {
         playerBasicDamage = 10;
         damageModifier = 5;
+        upgradeCost = 1000;
+        upgradeDamage = 10;
         playerScript = FindObjectOfType<PlayerController>();
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            attackIncreased = true;
-        }
 
-        if (attackIncreased)
-        {
-            playerBasicDamage += damageModifier;
-            playerScript.playerAttack += damageModifier;
-            attackIncreased = false;
-        }
     }
 
 }

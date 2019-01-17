@@ -975,7 +975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &48465137
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4326,10 +4326,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopPanel: {fileID: 1778007492}
-  weaponPanel: {fileID: 0}
-  lifestealPanel: {fileID: 0}
-  slowmoPanel: {fileID: 0}
-  aoePanel: {fileID: 0}
+  upgradeCost: {fileID: 0}
+  weaponDamage: {fileID: 0}
+  weaponFutureDamage: {fileID: 0}
 --- !u!1 &190331085
 GameObject:
   m_ObjectHideFlags: 0
@@ -37722,6 +37721,7 @@ MonoBehaviour:
   playerAttack: 10
   healAmount: 10
   coinsAmount: 0
+  audioClips: []
 --- !u!1 &7573415629209254701
 GameObject:
   m_ObjectHideFlags: 0

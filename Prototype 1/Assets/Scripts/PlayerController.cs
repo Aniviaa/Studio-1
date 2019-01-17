@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour {
                 attackChoice = Random.Range(0 , 10);
                 if(attackChoice < 5)
                 {
-                    audioSource.clip = audioClips[0];
+                    audioSource.clip = audioClips[0];//JP DID THIS
                 }
                 if(attackChoice > 5)
                 {
@@ -262,11 +262,11 @@ public class PlayerController : MonoBehaviour {
             {
                 currentEnemy = hit.transform.gameObject;
             }
-            if (hit.transform.gameObject.tag == "Merchant")
-            {
-                Debug.Log("Merchant");
-                shopScript.EnableShopPanel();
-            }
+            //if (hit.transform.gameObject.tag == "Merchant")
+            //{
+            //    Debug.Log("Merchant");
+            //    shopScript.EnableShopPanel();
+            //}
             if (hit.transform.gameObject.tag == "Stone" && inStoneRange)
             {
                 SceneManager.LoadScene("Main Scene");

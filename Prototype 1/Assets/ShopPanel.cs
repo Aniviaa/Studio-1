@@ -9,17 +9,18 @@ public class ShopPanel : MonoBehaviour
     public Text upgradeCost;
     public Text weaponDamage;
     public Text weaponFutureDamage;
-
+    PlayerStatsTracker statsScript;
 
  
     void Start()
     {
-        
+        statsScript = FindObjectOfType<PlayerStatsTracker>();
     }
 
     void Update()
     {
-        
+        upgradeCost.text = statsScript.upgradeCost.ToString();
+        weaponFutureDamage.text = statsScript.upgradeDamage.ToString();
     }
 
     public void DisableShopPanel()
