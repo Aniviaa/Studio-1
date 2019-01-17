@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject currentEnemy;
     public GameObject rangeCylinder;
+    public GameObject stoneCenter;
 
     ShopPanel shopScript;
     Rigidbody playerRigid;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     public bool grounded;
     public bool slowMo;
     public bool lifeSteal;
+    public bool inStoneRange;
     public float attackTimer;
     public float slowMoTimer;
     public float slowMoSkillTimer;
@@ -72,6 +74,10 @@ public class PlayerController : MonoBehaviour {
         if (playerHealth >= 100)
         {
             playerHealth = 100;
+        }
+        if (playerHealth <= 0)
+        {
+            playerAnimator.SetBool("Dead", true);
         }
 
         healAmount = playerAttack / 2;
@@ -259,12 +265,11 @@ public class PlayerController : MonoBehaviour {
             if (hit.transform.gameObject.tag == "Merchant")
             {
                 Debug.Log("Merchant");
-
+                shopScript.EnableShopPanel();
             }
-            if (hit.transform.gameObject.tag == "Stone")
+            if (hit.transform.gameObject.tag == "Stone" && inStoneRange)
             {
                 SceneManager.LoadScene("Main Scene");
-                shopScript.EnableShopPanel();
             }
         }
     }
