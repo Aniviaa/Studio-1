@@ -7,7 +7,7 @@ public class Flee : Node
 
     public override Result Execute(EnemyBehaviorTree EBT)
     {
-        if (EBT.GetComponent<EnemyScript>().enemyHealth <= 30 && EBT.GetComponent<EnemyScript>().enemyHealth > 0)
+        if (EBT.GetComponent<EnemyScript>().enemyHealth <= 10 && EBT.GetComponent<EnemyScript>().enemyHealth > 0)
         {
             EBT.enemyAnimator.SetBool("Attack", false);
             EBT.enemyAnimator.SetBool("Idle", false);

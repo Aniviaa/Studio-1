@@ -193,7 +193,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.36522013
+        functionName: KnockBack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 0ca51c4176c96cb48bb7916c10beee0a,
+          type: 3}
+        floatParameter: 100
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
