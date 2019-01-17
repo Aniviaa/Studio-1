@@ -101,7 +101,6 @@
     <Compile Include="Assets\Scripts\Boss Scripts\BossChase.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossDie.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossIdle.cs" />
-    <Compile Include="Assets\Scripts\Boss Scripts\BossManaCheck.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossMeleeAttack.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossNode.cs" />
     <Compile Include="Assets\Scripts\Boss Scripts\BossRangedAttack.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="Assets\Scripts\RoomSpawner.cs" />
     <Compile Include="Assets\Scripts\SkillImages.cs" />
     <Compile Include="Assets\Scripts\spawnEne.cs" />
+    <Compile Include="Assets\ShopPanel.cs" />
     <Compile Include="Assets\Starfield Skybox\Demo\Script\LookCamera.cs" />
     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend Scroll.shader" />
     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Particle AddSoft A8.shader" />
