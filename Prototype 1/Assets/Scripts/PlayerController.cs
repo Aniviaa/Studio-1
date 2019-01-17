@@ -37,12 +37,15 @@ public class PlayerController : MonoBehaviour {
     public int healAmount;
     public int coinsAmount;
 
+    AudioSource audioSource;
+    public AudioClip[] audioClips;
+
 	// Use this for initialization
 	void Start ()
     {
         playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
+        audioSource = GetComponent<AudioSource>();
 
-        
 
         coinsAmount = playerStatsScript.coinsCollected;
         slashTimer = 0;
@@ -119,12 +122,23 @@ public class PlayerController : MonoBehaviour {
             if (currentEnemy && slashTimer > 2)
             {
                 slashTimer = 0;
+
                 attackChoice = Random.Range(0 , 10);
+                if(attackChoice < 5)
+                {
+                    audioSource.clip = audioClips[0];
+                }
+                if(attackChoice > 5)
+                {
+                    audioSource.clip = audioClips[1];
+                }
+                
                 playerAnimator.SetBool("Walk", false);
                 playerAnimator.SetBool("Run", false);
                 playerAnimator.SetBool("Idle", false);
                 playerAnimator.SetBool("Attack", true);
                 playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
+                audioSource.Play(44100);
                 //SingleAttack();
 
 
