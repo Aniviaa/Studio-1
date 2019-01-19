@@ -8,21 +8,37 @@ public class SkillImages : MonoBehaviour {
     public Image HealSkill;
     public Image SlowMoSkill;
     public Image AoESkill;
+    public Image healthBar;
+
     public Text slowMoTime;
     public Text lifestealTime;
+    public Text time;
 
+    public float timeMin;
+    public float timeSec;
+
+    public float playerHealth;
 
     PlayerController pcScript;
+    PlayerStatsTracker statsScript;
 
 	// Use this for initialization
 	void Start ()
     {
-        pcScript = FindObjectOfType<PlayerController>();	
+        playerHealth = 100;
+        pcScript = FindObjectOfType<PlayerController>();
+        statsScript = FindObjectOfType<PlayerStatsTracker>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        timeMin = (int)statsScript.gameTimer / 60;
+        timeSec = (int)statsScript.gameTimer % 60;
+
+        time.text = timeMin.ToString() + " : " + timeSec.ToString();
+
+        healthBar.fillAmount = pcScript.playerHealth / playerHealth;
         updateSkills();
     }
 

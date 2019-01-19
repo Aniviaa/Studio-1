@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
+
     public int enemyHealth;
+    public int startHealth;
     public int enemyAttack;
     public bool inRange;
-
+    public bool healthBarActive;
     ChasingBehavior CBScript;
     public bool dead;
     public bool weaponDropped;
@@ -14,15 +16,26 @@ public class EnemyScript : MonoBehaviour {
     public int weaponChosen;
     public GameObject[] weaponDrops;
     public GameObject droppedCoin;
+    public GameObject enemyHealthSetup;
+    public GameObject instantiatedenemyHealthSetup;
     public Vector3 coinMovement;
 
 	void Start () 
     {
         CBScript = GetComponentInParent<ChasingBehavior>();
+        startHealth = enemyHealth;
+        healthBarActive = false;
 	}
 	
 	void Update ()
     {
+        if (startHealth != enemyHealth && !healthBarActive)
+        {
+            instantiatedenemyHealthSetup = Instantiate(enemyHealthSetup, transform.position + new Vector3(0, 0.6f, 0), Quaternion.identity);
+            instantiatedenemyHealthSetup.transform.parent = this.transform;
+            instantiatedenemyHealthSetup.transform.localScale /= 3;
+            healthBarActive = true;
+        }
         if (dead && !weaponDropped)
         {
             ChooseWeapon();

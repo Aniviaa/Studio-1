@@ -24,7 +24,6 @@ public class Chase : Node
             {
                 EBT.enemyAnimator.SetBool("Walk", false);
                 EBT.enemyAnimator.SetBool("Attack", true);
-                Debug.Log("Reached Enemy");
                 return Result.success;
             }
         }
@@ -32,7 +31,6 @@ public class Chase : Node
         {
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Attack", true);
-            Debug.Log("Reached Enemy1");
             return Result.success;
         }
         return Result.failure;

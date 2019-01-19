@@ -33,9 +33,11 @@ public class EnemyBehaviorTree : MonoBehaviour{
 
     public EnemyScript enemyScript;
     public ObjectPool objectPool;
+    public PlayerStatsTracker playerStats;
 
     void Start()
     {
+        playerStats = FindObjectOfType<PlayerStatsTracker>();
         enemyScript = GetComponentInParent<EnemyScript>();
         objectPool = FindObjectOfType<ObjectPool>();
         AddChildren();
@@ -91,6 +93,7 @@ public class EnemyBehaviorTree : MonoBehaviour{
         }
         return false;
     }
+
     public void KnockBack(float force)
     {
         Vector3 pushDirection = player.transform.position - transform.position;

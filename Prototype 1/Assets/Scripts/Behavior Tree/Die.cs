@@ -12,6 +12,7 @@ public class Die : Node
         }
         else
         {
+            EBT.playerStats.enemiesKilled += 1;
             EBT.player.GetComponent<PlayerController>().currentEnemy = null;
 
             EBT.transform.LookAt(EBT.player.transform.position);

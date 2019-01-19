@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     public bool slowMo;
     public bool lifeSteal;
     public bool inStoneRange;
+    public bool dead;
     public float attackTimer;
     public float slowMoTimer;
     public float slowMoSkillTimer;
@@ -40,17 +41,16 @@ public class PlayerController : MonoBehaviour {
     public int playerAttack;
     public int healAmount;
     public int coinsAmount;
-
+    public float deathAssurance;
     AudioSource audioSource;
     public AudioClip[] audioClips;
 
-	// Use this for initialization
-	void Start ()
+    void Start ()
     {
         playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
         audioSource = GetComponent<AudioSource>();
         shopScript = FindObjectOfType<ShopPanel>();
-        
+        dead = false;
         coinsAmount = playerStatsScript.coinsCollected;
         slashTimer = 0;
         AoESkillTimer = 15;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         healSkillTimer = 15;
         lifestealSkillTimer = 15;
         slowMoTimer = 5;
-        lifestealTimer = 5;
+        lifestealTimer = 11;
         slowMo = false;
         playerHealth = 100;
         grounded = true;
@@ -67,23 +67,33 @@ public class PlayerController : MonoBehaviour {
         rotSpeed = 5;
         speed = 1;
         moving = false;
+        deathAssurance = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        
+        playerHealth = playerStatsScript.playerHealth;
 
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
+
         if (playerHealth >= 100)
         {
             playerHealth = 100;
         }
         if (playerHealth <= 0)
         {
-            playerAnimator.SetBool("Dead", true);
+            deathAssurance += Time.deltaTime;
+
+            if (deathAssurance > .1f)
+            {
+                playerAnimator.SetBool("Dead", true);
+                dead = true;
+            }
         }
 
-        healAmount = playerAttack / 2;
+        healAmount = playerAttack;
 
         if (playerAttack != playerStatsScript.playerBasicDamage)
         {
@@ -96,7 +106,6 @@ public class PlayerController : MonoBehaviour {
         }
         //playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
         coinsAmount = playerStatsScript.coinsCollected;
-
         attackTimer += Time.deltaTime;
         slashTimer += Time.deltaTime;
 
@@ -114,13 +123,18 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.X))
         {
+            SceneManager.LoadScene("level 2");
+            Debug.Log("Load Scene");
+        }
+        if (Input.GetKey(KeyCode.C))
+        {
             SceneManager.LoadScene("MainMenu");
             Debug.Log("Load Scene");
         }
 
         //-------------------------------------------------------------Easter--Egg---------------------------------------------------------------------------//
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && !dead)
         {
             SetTargetPosition();
             currentEnemy = null;
@@ -154,11 +168,9 @@ public class PlayerController : MonoBehaviour {
                 playerAnimator.SetBool("Attack", true);
 
                 playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
-                audioSource.Play(44100);
+                
 
                 slashTimer = 0;
-
-                //SingleAttack();
 
 
             }
@@ -208,7 +220,7 @@ public class PlayerController : MonoBehaviour {
             if (lifestealTimer <= 0)
             {
                 lifeSteal = false;
-                lifestealTimer = 6;
+                lifestealTimer = 11;
             }
         }
     }
@@ -237,7 +249,7 @@ public class PlayerController : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1000) && hit.transform.tag == "Ground")
+        if (Physics.Raycast(ray, out hit, 1000) && (hit.transform.tag == "Ground" || hit.transform.tag == "Enemy"))
         {
 
             targetPosition = hit.point;
@@ -319,7 +331,7 @@ public class PlayerController : MonoBehaviour {
                 if (lifeSteal)
                 {
                     currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount;
-                    playerHealth += healAmount;
+                    playerStatsScript.playerHealth += healAmount;
                 }
                 else
                 {
@@ -328,7 +340,7 @@ public class PlayerController : MonoBehaviour {
 
                 this.transform.LookAt(currentEnemy.transform.position);
                 moving = false;
-
+                audioSource.Play();
                 Debug.Log("Knocback");
                 KnockBack(200);
             }
@@ -342,7 +354,6 @@ public class PlayerController : MonoBehaviour {
             if (!currentEnemy.GetComponent<EnemyScript>().inRange)
             {
                 transform.LookAt(currentEnemy.transform.position);
-                Debug.Log("This one is being used1111");
                 //transform.position = Vector3.MoveTowards(transform.position, currentEnemy.transform.position, speed * Time.deltaTime);
             }
             else
@@ -369,7 +380,6 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Q) && lifestealSkillTimer >= 15)
         {
-            Debug.Log("Heal Skill111");
             print(healSkillTimer);
             lifeSteal = true;
         }
@@ -377,27 +387,31 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.W) && slowMoTimer >= 0 && slowMoSkillTimer >= 15)
         {
             slowMo = true;
-            Debug.Log("SuperSpeed");
         }
         if (Input.GetKeyDown(KeyCode.E) && AoESkillTimer >= 15)
         {
             AoESkillTimer = 0;
-            Debug.Log("AOE");
-            foreach (GameObject enemylist in rangeCylinder.gameObject.GetComponent<AoECheck>().enemyAOEList)
-            {
-                enemylist.gameObject.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
-                Vector3 pushDirection = enemylist.gameObject.transform.position - transform.position;
-                pushDirection = pushDirection.normalized;
-                enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 250);
-            }
-                playerAnimator.SetBool("Walk", false);
-                playerAnimator.SetBool("Run", false);
-                playerAnimator.SetBool("Idle", false);
-                playerAnimator.SetBool("Attack", false);
-                playerAnimator.SetBool("AOE", true);
-            
-
+            playerAnimator.SetBool("Walk", false);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("Attack", false);
+            playerAnimator.SetBool("AOE", true);
         }
+    }
+    public void AoEAttack()
+    {
+        foreach (GameObject enemylist in rangeCylinder.gameObject.GetComponent<AoECheck>().enemyAOEList)
+        {
+            enemylist.gameObject.GetComponent<EnemyScript>().enemyHealth -= playerAttack;
+            Vector3 pushDirection = enemylist.gameObject.transform.position - transform.position;
+            pushDirection = pushDirection.normalized;
+            enemylist.gameObject.GetComponent<Rigidbody>().AddForce(pushDirection * 250);
+        }
+        playerAnimator.SetBool("Walk", false);
+        playerAnimator.SetBool("Run", false);
+        playerAnimator.SetBool("Idle", true);
+        playerAnimator.SetBool("Attack", false);
+        playerAnimator.SetBool("AOE", false);
     }
 
     void KnockBack(float force)
@@ -410,6 +424,20 @@ public class PlayerController : MonoBehaviour {
     private float Distance()
     {
         return Vector3.Distance(targetPosition, transform.position);
+    }
+
+    public void Footsteps(int type)
+    {
+        if (type == 1)
+        {
+            audioSource.clip = audioClips[2];
+        }
+        else if (type == 2)
+        {
+            audioSource.clip = audioClips[3];
+        }
+
+        audioSource.Play();
     }
 
     private void OnCollisionEnter(Collision collision)

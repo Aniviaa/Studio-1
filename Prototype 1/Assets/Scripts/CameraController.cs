@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour {
     {
         zMinus = true;
         this.transform.LookAt(player.transform.position);
+        player = GameObject.Find("Player");
     }
 
     void Update()

@@ -12,15 +12,18 @@ public class BossSpawner : MonoBehaviour
     public GameObject boss;
     public GameObject[] enemies;
 
+    public PlayerStatsTracker playerStats;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerStats = FindObjectOfType<PlayerStatsTracker>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        totalSpawnBossPoints = playerStats.enemiesKilled;
         SpawnBoss();
     }
 

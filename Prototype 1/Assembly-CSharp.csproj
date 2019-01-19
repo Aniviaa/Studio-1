@@ -68,6 +68,7 @@
     <Compile Include="Assets\ClassSTuff\ScreenManager.cs" />
     <Compile Include="Assets\ClassSTuff\state.cs" />
     <Compile Include="Assets\decorative assets\Sound_Effect.cs" />
+    <Compile Include="Assets\EnemyHealthBar.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
