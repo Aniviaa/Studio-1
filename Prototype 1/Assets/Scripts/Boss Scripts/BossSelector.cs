@@ -12,21 +12,17 @@ public class BossSelector : BossNode
             if (childrenNodes[i].Execute(BBT) == Result.success)
             {
                 //currentResult = Result.success;
-                Debug.Log("Selector Success");
                 return Result.success;
             }
 
 
             else if (childrenNodes[i].Execute(BBT) == Result.running)
             {
-                //currentResult = Result.running;
-                Debug.Log("Selector Running");
                 childrenNodes[i].Execute(BBT);
             }
         }
 
         //currentResult = Result.failure;
-        Debug.Log("Selector Failed");
         return Result.failure;
 
     }

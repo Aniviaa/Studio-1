@@ -32,7 +32,6 @@ public class CameraController : MonoBehaviour {
         if (yRotation >= 180 && minus)
         {
             offsetx = -offsetx;
-            Debug.Log("MINUS");
             minus = false;
         }
         if (yRotation <= 179)

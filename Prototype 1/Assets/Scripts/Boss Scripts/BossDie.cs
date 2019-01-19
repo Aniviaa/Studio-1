@@ -8,7 +8,6 @@ public class BossDie : BossNode
     {
         if (BBT.GetComponent<EnemyScript>().enemyHealth > 0)
         {
-            Debug.Log("Die Failed");
             return Result.failure;
         }
         else
@@ -22,7 +21,7 @@ public class BossDie : BossNode
             BBT.anim.SetBool("Idle", false);
             BBT.anim.SetBool("Chase", false);
             BBT.anim.SetBool("Die", true);
-            Debug.Log("Die");
+            BBT.fireAttack.SetActive(false);
             BBT.GetComponent<BossBehaviorTree>().enabled = false;
             return Result.success;
         }

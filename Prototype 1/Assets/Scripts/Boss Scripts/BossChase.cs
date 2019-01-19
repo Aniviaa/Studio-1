@@ -20,19 +20,16 @@ public class BossChase : BossNode
             BBT.anim.SetBool("Idle", false);
             BBT.anim.SetBool("Chase", true);
             BBT.anim.SetBool("Die", false);
-            Debug.Log("Boss Chase");
 
             if (BBT.CheckingDistanceMinimum())// Checking if right next to him
             {
                 BBT.moving = false;
-                Debug.Log("Chase Success");
                 return Result.success;  
             }
         }
         else if (BBT.CheckingDistanceMinimum())// Checking if right next to him
         {
             BBT.moving = false;
-            Debug.Log("Chase2 Success");
             return Result.success;
         }
         

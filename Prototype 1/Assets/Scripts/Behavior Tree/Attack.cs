@@ -16,8 +16,6 @@ public class Attack : Node
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Dead", false);
             EBT.playerStats.playerHealth -= EBT.GetComponent<EnemyScript>().enemyAttack;
-            print("attack");
-            print(EBT.playerStats.playerHealth);
             EBT.attackTime = 0;
             return Result.success;
         }

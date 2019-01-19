@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossSpawner : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class BossSpawner : MonoBehaviour
     public GameObject bossSpawnLocation;
     public GameObject boss;
     public GameObject[] enemies;
+    public bool bossSpawned;
 
     public PlayerStatsTracker playerStats;
+    public Scene currentScene;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +26,9 @@ public class BossSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentScene = SceneManager.GetActiveScene();
         totalSpawnBossPoints = playerStats.enemiesKilled;
+
         SpawnBoss();
     }
 
@@ -32,9 +37,12 @@ public class BossSpawner : MonoBehaviour
         if(totalSpawnBossPoints >= requiredSpawnBossPoints)
         {
             KillAllEnemies();
-            Instantiate(boss, bossSpawnLocation.transform.position,bossSpawnLocation.transform.rotation);
-            totalSpawnBossPoints = 0;
-            Debug.Log("Boss Spawned");
+            if (!bossSpawned && currentScene.name == "level 2")
+            {
+                Instantiate(boss, bossSpawnLocation.transform.position, bossSpawnLocation.transform.rotation);
+                totalSpawnBossPoints = 0;
+                bossSpawned = true;
+            }
         }
     }
 
@@ -44,7 +52,10 @@ public class BossSpawner : MonoBehaviour
         
         foreach(GameObject enemy in enemies)
         {
-            enemy.GetComponent<EnemyScript>().enemyHealth = 0;
+            if (enemy.name != "Boss(Clone)")
+            {
+                enemy.GetComponent<EnemyScript>().enemyHealth = 0;
+            }
         }
     }
 }

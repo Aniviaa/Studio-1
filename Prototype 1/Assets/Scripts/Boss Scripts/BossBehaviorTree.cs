@@ -23,7 +23,7 @@ public class BossBehaviorTree : MonoBehaviour
     public BossNode attackSequence;
 
     public Animator anim;
-   
+    public PlayerStatsTracker statsScript;
     
     
     // Start is called before the first frame update
@@ -31,6 +31,7 @@ public class BossBehaviorTree : MonoBehaviour
     {
         moving = false;
         AddChildren();
+        statsScript = FindObjectOfType<PlayerStatsTracker>();
     }
 
     // Update is called once per frame
@@ -39,7 +40,6 @@ public class BossBehaviorTree : MonoBehaviour
 
         fireTime += Time.deltaTime;
         attackType = attackRange = Random.Range(0, 10);
-        attackTime += Time.deltaTime;
         if (!player)
         {
             player = GameObject.Find("Player");

@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour {
             
             SetTargetEnemy();
 
-            if (currentEnemy && slashTimer > 1)
+            if (currentEnemy && slashTimer > 0.5f)
             {
                 slashTimer = 0;
 
@@ -342,7 +342,15 @@ public class PlayerController : MonoBehaviour {
                 moving = false;
                 audioSource.Play();
                 Debug.Log("Knocback");
-                KnockBack(200);
+
+                if (currentEnemy.GetComponent<EnemyScript>().enemyHealth <= 11)
+                {
+                    KnockBack(50);
+                }
+                else
+                {
+                    KnockBack(200);
+                }
             }
         }
     }

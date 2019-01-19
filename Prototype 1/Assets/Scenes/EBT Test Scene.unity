@@ -335,7 +335,10 @@ MonoBehaviour:
   bossSpawnLocation: {fileID: 526900371}
   boss: {fileID: 433648467, guid: 03d465aa76818ed48901bc4e6b1cc8d2, type: 3}
   enemies: []
+  bossSpawned: 0
   playerStats: {fileID: 0}
+  currentScene:
+    m_Handle: 0
 --- !u!4 &526900373
 Transform:
   m_ObjectHideFlags: 0
@@ -453,6 +456,10 @@ PrefabInstance:
     - target: {fileID: 765890791, guid: fafac54ad74eb8d44bd04b715e18acbc, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 765890791, guid: fafac54ad74eb8d44bd04b715e18acbc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 765890798, guid: fafac54ad74eb8d44bd04b715e18acbc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -911,14 +918,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 100
+  startHealth: 0
   enemyAttack: 0
   inRange: 0
+  healthBarActive: 0
   dead: 0
   weaponDropped: 0
   ranged: 0
   weaponChosen: 0
   weaponDrops: []
   droppedCoin: {fileID: 0}
+  enemyHealthSetup: {fileID: 0}
+  instantiatedenemyHealthSetup: {fileID: 0}
   coinMovement: {x: 0, y: 0, z: 0}
 --- !u!114 &1020979558
 MonoBehaviour:
@@ -1183,71 +1194,56 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 433648467, guid: 03d465aa76818ed48901bc4e6b1cc8d2, type: 3}
+    - target: {fileID: 805992012, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 433648467, guid: 03d465aa76818ed48901bc4e6b1cc8d2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.247843
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalPosition.y
       value: -7.23154e-17
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalPosition.z
       value: 34.228924
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8689540445796316933, guid: 03d465aa76818ed48901bc4e6b1cc8d2,
-        type: 3}
+    - target: {fileID: 805992016, guid: 9560630081a27074a914cd88978e8895, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 03d465aa76818ed48901bc4e6b1cc8d2, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 9560630081a27074a914cd88978e8895, type: 3}
 --- !u!1001 &1406414247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1458,7 +1454,7 @@ PrefabInstance:
     - target: {fileID: 1829490106539865382, guid: 9020f572f567d9243bae5fe52d6d0138,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.6596737
+      value: 23.49
       objectReference: {fileID: 0}
     - target: {fileID: 1829490106539865382, guid: 9020f572f567d9243bae5fe52d6d0138,
         type: 3}
@@ -1468,7 +1464,7 @@ PrefabInstance:
     - target: {fileID: 1829490106539865382, guid: 9020f572f567d9243bae5fe52d6d0138,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.12632656
+      value: 26.11
       objectReference: {fileID: 0}
     - target: {fileID: 1829490106539865382, guid: 9020f572f567d9243bae5fe52d6d0138,
         type: 3}
@@ -1794,14 +1790,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 31
+  startHealth: 0
   enemyAttack: 0
   inRange: 0
+  healthBarActive: 0
   dead: 0
   weaponDropped: 0
   ranged: 0
   weaponChosen: 0
   weaponDrops: []
   droppedCoin: {fileID: 0}
+  enemyHealthSetup: {fileID: 0}
+  instantiatedenemyHealthSetup: {fileID: 0}
   coinMovement: {x: 0, y: 0, z: 0}
 --- !u!95 &2140332528 stripped
 Animator:

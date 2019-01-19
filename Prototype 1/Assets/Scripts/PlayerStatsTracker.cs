@@ -57,7 +57,6 @@ public class PlayerStatsTracker : MonoBehaviour
 
     public void Update()
     {
-        //playerHealth = playerScript.playerHealth;
 
         if (playerHealth >= 100)
         {

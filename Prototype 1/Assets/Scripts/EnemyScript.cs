@@ -29,12 +29,16 @@ public class EnemyScript : MonoBehaviour {
 	
 	void Update ()
     {
-        if (startHealth != enemyHealth && !healthBarActive)
+        if (startHealth != enemyHealth && !healthBarActive && transform.name != "Boss(Clone)")
         {
             instantiatedenemyHealthSetup = Instantiate(enemyHealthSetup, transform.position + new Vector3(0, 0.6f, 0), Quaternion.identity);
             instantiatedenemyHealthSetup.transform.parent = this.transform;
             instantiatedenemyHealthSetup.transform.localScale /= 3;
             healthBarActive = true;
+        }
+        if (enemyHealth <= 0)
+        {
+            Destroy(instantiatedenemyHealthSetup);
         }
         if (dead && !weaponDropped)
         {
@@ -46,7 +50,6 @@ public class EnemyScript : MonoBehaviour {
     {
         for (int i = 0; i < 3; i++)
         {
-            Debug.Log(weaponDropped);
             weaponChosen = Random.Range(0, 1);
             Vector3 enemyPosition = transform.position;
             droppedCoin = weaponDrops[weaponChosen];

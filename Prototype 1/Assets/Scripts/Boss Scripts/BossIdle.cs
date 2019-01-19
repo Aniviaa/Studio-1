@@ -15,7 +15,6 @@ public class BossIdle : BossNode
             BBT.anim.SetBool("Chase", false);
             BBT.anim.SetBool("Die", false);
         }
-        Debug.Log("Idle");
         return Result.success;
     }
 }

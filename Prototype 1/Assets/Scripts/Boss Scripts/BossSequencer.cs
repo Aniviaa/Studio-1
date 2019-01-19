@@ -12,18 +12,15 @@ public class BossSequencer : BossNode
             if (childrenNodes[i].Execute(BBT) == Result.running)
             {
                 childrenNodes[i].Execute(BBT);
-                Debug.Log("Sequence running");
                 return Result.running;
                 
             }
 
             else if (childrenNodes[i].Execute(BBT) == Result.failure)
             {
-                Debug.Log("Sequence failed");
                 return Result.failure;
             }
         }
-        Debug.Log("Sequence success");
         return Result.success;
     }
 }

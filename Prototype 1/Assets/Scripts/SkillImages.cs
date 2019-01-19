@@ -9,25 +9,33 @@ public class SkillImages : MonoBehaviour {
     public Image SlowMoSkill;
     public Image AoESkill;
     public Image healthBar;
+    public Image enemiesBar;
+    public Image enemiesBackBar;
 
     public Text slowMoTime;
     public Text lifestealTime;
     public Text time;
+    public Text enemiesKilled;
 
     public float timeMin;
     public float timeSec;
-
     public float playerHealth;
+
+    public float enemiesKilledNumber;
+    public float enemiesNeeded;
 
     PlayerController pcScript;
     PlayerStatsTracker statsScript;
+    BossSpawner bossScript;
 
 	// Use this for initialization
 	void Start ()
     {
+        enemiesBar.fillAmount = 0;
         playerHealth = 100;
         pcScript = FindObjectOfType<PlayerController>();
         statsScript = FindObjectOfType<PlayerStatsTracker>();
+        bossScript = FindObjectOfType<BossSpawner>();
 	}
 	
 	// Update is called once per frame
@@ -35,8 +43,23 @@ public class SkillImages : MonoBehaviour {
     {
         timeMin = (int)statsScript.gameTimer / 60;
         timeSec = (int)statsScript.gameTimer % 60;
+        enemiesKilledNumber = statsScript.enemiesKilled;
+        enemiesNeeded = bossScript.requiredSpawnBossPoints;
 
-        time.text = timeMin.ToString() + " : " + timeSec.ToString();
+
+        if (!bossScript.bossSpawned)
+        {
+            time.text = timeMin.ToString() + " : " + timeSec.ToString();
+            enemiesKilled.text = enemiesKilledNumber.ToString() + "/" + enemiesNeeded.ToString();
+            enemiesBar.fillAmount = enemiesKilledNumber / enemiesNeeded;
+        }
+        else
+        {
+            time.gameObject.SetActive(false);
+            enemiesKilled.gameObject.SetActive(false);
+            enemiesBar.gameObject.SetActive(false);
+            enemiesBackBar.gameObject.SetActive(false);
+        }
 
         healthBar.fillAmount = pcScript.playerHealth / playerHealth;
         updateSkills();
