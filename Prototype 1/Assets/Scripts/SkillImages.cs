@@ -12,12 +12,19 @@ public class SkillImages : MonoBehaviour {
     public Image enemiesBar;
     public Image enemiesBackBar;
     public Image bossHealthBar;
+    public Image gameoverImage;
 
     public Text slowMoTime;
     public Text lifestealTime;
+    public Text aoeTime;
     public Text time;
     public Text enemiesKilled;
 
+    public float lifestealCD;
+    public float slowmoCD;
+    public float aoeCD;
+
+    public float deathTimer;
     public float timeMin;
     public float timeSec;
     public float playerHealth;
@@ -33,6 +40,13 @@ public class SkillImages : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        lifestealCD = 25;
+        slowmoCD = 20;
+        aoeCD = 15;
+        aoeTime.enabled = false;
+        lifestealTime.enabled = false;
+        gameoverImage.GetComponent<Animator>().enabled = false;
+        gameoverImage.enabled = false;
         enemiesBar.fillAmount = 0;
         playerHealth = 100;
         pcScript = FindObjectOfType<PlayerController>();
@@ -48,7 +62,15 @@ public class SkillImages : MonoBehaviour {
         enemiesKilledNumber = statsScript.enemiesKilled;
         enemiesNeeded = bossScript.requiredSpawnBossPoints;
 
+        if (pcScript.playerHealth <= 0)
+        {
+            deathTimer += Time.deltaTime;
 
+            if (deathTimer >= 2)
+            {
+                GameOver();
+            }
+        }
         if (!bossScript.bossSpawned)
         {
             time.text = timeMin.ToString("00") + " : " + timeSec.ToString("00");
@@ -68,7 +90,12 @@ public class SkillImages : MonoBehaviour {
         }
 
         healthBar.fillAmount = pcScript.playerHealth / playerHealth;
+
+        lifestealTime.text = "" + (int)lifestealCD;
+        slowMoTime.text = "" + (int)slowmoCD;
+        aoeTime.text = "" + (int)aoeCD;
         updateSkills();
+
     }
 
     public void updateSkills()
@@ -76,14 +103,54 @@ public class SkillImages : MonoBehaviour {
         float healRatio = pcScript.lifestealSkillTimer;
         float slowMoRatio = pcScript.slowMoSkillTimer;
         float aoeRatio = pcScript.AoESkillTimer;
+        Debug.Log(pcScript.lifestealSkillTimer);
+
+
+        
 
         slowMoTime.enabled = pcScript.slowMo;
-        lifestealTime.enabled = pcScript.lifeSteal;
+        if (pcScript.lifestealSkillTimer < 15)
+        {
+            lifestealTime.enabled = true;
+            lifestealCD -= Time.deltaTime;
+        }
+        else if(lifestealCD <= 0)
+        {
+            lifestealTime.enabled = false;
+            lifestealCD = 25;
+        }
+        if (pcScript.slowMoSkillTimer < 15)
+        {
+            slowMoTime.enabled = true;
+            slowmoCD -= Time.deltaTime;
+        }
+        else if (slowmoCD <= 0)
+        {
+            slowMoTime.enabled = false;
+            slowmoCD = 20;
+        }
+        if (pcScript.AoESkillTimer < 15)
+        {
+            aoeTime.enabled = true;
+            aoeCD -= Time.deltaTime;
+        }
+        else if (aoeCD <= 0)
+        {
+            aoeTime.enabled = false;
+            aoeCD = 15;
+        }
 
-        slowMoTime.text = "" + (int)pcScript.slowMoTimer;
-        lifestealTime.text = "" + (int)pcScript.lifestealTimer;
+
+
         HealSkill.fillAmount = healRatio / 15;
         SlowMoSkill.fillAmount = slowMoRatio / 15;
         AoESkill.fillAmount = aoeRatio / 15;
+    }
+
+    public void GameOver()
+    {
+        gameoverImage.GetComponent<Animator>().enabled = true;
+        gameoverImage.enabled = true;
+        Debug.Log("Death true");
     }
 }
