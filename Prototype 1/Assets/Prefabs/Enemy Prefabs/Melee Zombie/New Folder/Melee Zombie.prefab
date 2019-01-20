@@ -1806,7 +1806,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.7602713, z: 1}
+  m_Size: {x: 1.56, y: 2.12, z: 1.32}
   m_Center: {x: 0, y: 0.88337296, z: 0}
 --- !u!65 &1801159223
 BoxCollider:
@@ -1819,7 +1819,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.4912674, z: 0.44}
+  m_Size: {x: 0.76, y: 0.4912674, z: 0.8}
   m_Center: {x: 0, y: 0.2543663, z: 0}
 --- !u!114 &1801159222
 MonoBehaviour:
@@ -1837,9 +1837,23 @@ MonoBehaviour:
   arrow: {fileID: 0}
   arrowPositions: {fileID: 0}
   enemyAnimator: {fileID: 1801159226}
-  patrolSpots: []
+  patrolSpots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   randomPatrolSpot: 0
-  enemySpeed: 0.1
+  enemySpeed: 0.5
   minimumDistance: 0.3
   maximumDistance: 5
   dead: 0
@@ -1858,6 +1872,9 @@ MonoBehaviour:
   movementSelector: {fileID: 0}
   attackSelector: {fileID: 0}
   attackSequence: {fileID: 0}
+  enemyScript: {fileID: 0}
+  objectPool: {fileID: 0}
+  playerStats: {fileID: 0}
 --- !u!114 &1801159221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1870,14 +1887,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5c8e72cc5075c4794596b79085a9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 40
+  enemyHealth: 50
+  startHealth: 0
   enemyAttack: 5
   inRange: 0
+  healthBarActive: 0
   dead: 0
   weaponDropped: 0
   ranged: 0
   weaponChosen: 0
-  weaponDrops: []
+  weaponDrops:
+  - {fileID: 4493385550093688868, guid: ab62bbdfaf4c4944d81e2db6cdde6c55, type: 3}
+  - {fileID: 463477122288853558, guid: 0e83c84b77c18914695302ab9a4b3358, type: 3}
+  droppedCoin: {fileID: 0}
+  enemyHealthSetup: {fileID: 4217926648845088577, guid: aabcdeae02fab6f40917e44d0f45a15c,
+    type: 3}
+  instantiatedenemyHealthSetup: {fileID: 0}
+  coinMovement: {x: 0, y: 0, z: 0}
 --- !u!1 &1840769568
 GameObject:
   m_ObjectHideFlags: 0

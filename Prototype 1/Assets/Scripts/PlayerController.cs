@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     public bool inStoneRange;
     public bool dead;
     public bool attackDone;
+    public bool AoEActive;
     public float attackTimer;
     public float slowMoTimer;
     public float slowMoSkillTimer;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour {
     public int coinsAmount;
     public float deathAssurance;
     AudioSource audioSource;
+    public AudioSource footAudio;
     public AudioClip[] audioClips;
 
     void Start ()
@@ -145,8 +147,9 @@ public class PlayerController : MonoBehaviour {
         {
 
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !AoEActive)
         {
+            SetTargetPosition();
             SetTargetEnemy();
             attackDone = false;
 
@@ -160,7 +163,6 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log(Vector3.Distance(transform.position, currentEnemy.transform.position));
 
             }
-            SetTargetPosition();
         }
         if (moving)
         {
@@ -236,9 +238,24 @@ public class PlayerController : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1000) && (hit.transform.tag == "Ground" || hit.transform.tag == "Enemy"))
+        if (Physics.Raycast(ray, out hit, 1000) && (hit.transform.tag == "Enemy"))
         {
 
+            targetPosition = hit.point;
+            targetPosition.y = this.transform.position.y;
+            lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y, targetPosition.z - transform.position.z);
+            playerRot = Quaternion.LookRotation(lookAtTarget);
+            moving = true;
+
+            playerAnimator.SetBool("Walk", true);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("Attack", false);
+
+        }
+        else if (Physics.Raycast(ray, out hit, 1000) && (hit.transform.tag == "Ground"))
+        {
+            currentEnemy = null;
             targetPosition = hit.point;
             targetPosition.y = this.transform.position.y;
             lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y, targetPosition.z - transform.position.z);
@@ -312,7 +329,7 @@ public class PlayerController : MonoBehaviour {
                 slashTimer = 0;
                 if (lifeSteal)
                 {
-                    currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount;
+                    currentEnemy.gameObject.GetComponent<EnemyScript>().enemyHealth -= healAmount + Random.Range(0,10);
                     playerStatsScript.playerHealth += healAmount;
                 }
                 else
@@ -380,6 +397,7 @@ public class PlayerController : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.E) && AoESkillTimer >= 15)
         {
+            AoEActive = true;
             AoESkillTimer = 0;
             playerAnimator.SetBool("Walk", false);
             playerAnimator.SetBool("Run", false);
@@ -402,6 +420,7 @@ public class PlayerController : MonoBehaviour {
         playerAnimator.SetBool("Idle", true);
         playerAnimator.SetBool("Attack", false);
         playerAnimator.SetBool("AOE", false);
+        AoEActive = false;
     }
 
     void KnockBack(float force)
@@ -420,14 +439,14 @@ public class PlayerController : MonoBehaviour {
     {
         if (type == 1)
         {
-            audioSource.clip = audioClips[2];
+            footAudio.clip = audioClips[2];
         }
         else if (type == 2)
         {
-            audioSource.clip = audioClips[3];
+            footAudio.clip = audioClips[3];
         }
 
-        audioSource.Play();
+        footAudio.Play();
     }
 
     private void OnCollisionEnter(Collision collision)
