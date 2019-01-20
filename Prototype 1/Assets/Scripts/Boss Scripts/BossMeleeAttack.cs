@@ -15,7 +15,7 @@ public class BossMeleeAttack : BossNode
             BBT.anim.SetBool("Idle", false);
             BBT.anim.SetBool("Chase", false);
             BBT.anim.SetBool("Die", false);
-            BBT.statsScript.playerHealth -= BBT.GetComponent<EnemyScript>().enemyAttack;
+            BBT.statsScript.playerHealth -= (int)BBT.GetComponent<EnemyScript>().enemyAttack;
 
             if (BBT.attackTime >= 61)
             {

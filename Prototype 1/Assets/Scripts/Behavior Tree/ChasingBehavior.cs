@@ -149,7 +149,7 @@ public class ChasingBehavior : MonoBehaviour {
                 enemyAnimator.SetBool("Idle", false);
                 enemyAnimator.SetBool("Walk", false);
                 enemyAnimator.SetBool("Dead", false);
-                player.GetComponent<PlayerController>().playerHealth -= GetComponent<EnemyScript>().enemyAttack;
+                player.GetComponent<PlayerController>().playerHealth -= (int)GetComponent<EnemyScript>().enemyAttack;
             }
         }
     }

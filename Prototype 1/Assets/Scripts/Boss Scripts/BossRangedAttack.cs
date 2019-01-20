@@ -17,7 +17,7 @@ public class BossRangedAttack : BossNode
             BBT.anim.SetBool("Attack", true);
             BBT.anim.SetBool("Chase", false);
             BBT.anim.SetBool("Die", false);
-            BBT.statsScript.playerHealth -= BBT.GetComponent<EnemyScript>().enemyAttack;
+            BBT.statsScript.playerHealth -= (int)BBT.GetComponent<EnemyScript>().enemyAttack;
             //Instantiate(EBT.arrow, EBT.arrowPositions.transform.position, Quaternion.identity);
             //BBT.objectPool.Fire(BBT.arrowPositions);
 

@@ -15,7 +15,7 @@ public class RangedAttack : Node
             EBT.enemyAnimator.SetBool("Idle", false);
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Dead", false);
-            EBT.player.GetComponent<PlayerController>().playerHealth -= EBT.GetComponent<EnemyScript>().enemyAttack;
+            EBT.player.GetComponent<PlayerController>().playerHealth -= (int)EBT.GetComponent<EnemyScript>().enemyAttack;
             //Instantiate(EBT.arrow, EBT.arrowPositions.transform.position, Quaternion.identity);
             EBT.transform.LookAt(EBT.player.transform.position);
             EBT.objectPool.Fire(EBT.arrowPositions);
