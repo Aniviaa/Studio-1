@@ -77,11 +77,6 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (currentEnemy)
-        {
-
-            Debug.Log(Vector3.Distance(transform.position, currentEnemy.transform.position));
-        }
         playerHealth = playerStatsScript.playerHealth;
 
         currentScene = SceneManager.GetActiveScene();
