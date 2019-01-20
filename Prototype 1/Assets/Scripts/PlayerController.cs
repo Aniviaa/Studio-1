@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
     public float AoESkillTimer;
     public float slashTimer;
     public float attackChoice;
+    public float slashTimerSet;
     public int playerHealth;
     public int playerAttack;
     public int healAmount;
@@ -142,12 +143,10 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetMouseButton(1) && !dead)
         {
-            SetTargetPosition();
-            currentEnemy = null;
+
         }
         if (Input.GetMouseButton(0))
         {
-            
             SetTargetEnemy();
             attackDone = false;
 
@@ -161,6 +160,7 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log(Vector3.Distance(transform.position, currentEnemy.transform.position));
 
             }
+            SetTargetPosition();
         }
         if (moving)
         {
@@ -440,7 +440,9 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy" && !attackDone && other.gameObject ==  currentEnemy && Vector3.Distance(transform.position, currentEnemy.transform.position) <= .4f)
+        if (other.tag == "Enemy" && !attackDone && other.gameObject ==  currentEnemy 
+            && Vector3.Distance(transform.position, currentEnemy.transform.position) <= .4f
+            && slashTimer > slashTimerSet)
         {
 
             Debug.Log("This is true");
@@ -474,7 +476,9 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Enemy" && !attackDone && other.gameObject == currentEnemy && Vector3.Distance(transform.position, currentEnemy.transform.position) <= .4f)
+        if (other.tag == "Enemy" && !attackDone && other.gameObject == currentEnemy 
+            && Vector3.Distance(transform.position, currentEnemy.transform.position) <= .4f
+            && slashTimer > slashTimerSet)
         {
 
             Debug.Log("This is true");

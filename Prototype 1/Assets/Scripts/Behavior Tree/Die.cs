@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Die : Node
 { 
+    
     public override Result Execute(EnemyBehaviorTree EBT)
     {
         if (EBT.GetComponent<EnemyScript>().enemyHealth > 0)
@@ -22,6 +23,9 @@ public class Die : Node
             EBT.enemyAnimator.SetBool("Walk", false);
             EBT.enemyAnimator.SetBool("Dead", true);
             EBT.enemyScript.dead = true;
+            EBT.transform.tag = "Untagged";
+            EBT.GetComponent<Rigidbody>().useGravity = false;
+            EBT.GetComponent<Rigidbody>().isKinematic = true;
             EBT.GetComponent<EnemyBehaviorTree>().enabled = false;
             return Result.success;
         }

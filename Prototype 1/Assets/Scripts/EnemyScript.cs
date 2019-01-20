@@ -38,6 +38,11 @@ public class EnemyScript : MonoBehaviour {
         }
         if (enemyHealth <= 0)
         {
+            foreach (Collider collider in GetComponents<Collider>())
+            {
+                    collider.enabled = false;
+            }
+
             Destroy(instantiatedenemyHealthSetup);
         }
         if (dead && !weaponDropped)
