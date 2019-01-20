@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
+
+    public Image lifesteal;
+    public Image slowmo;
+    public Image aoe;
+    public GameObject playerCanvas;
 
     public PlayerStatsTracker playerStatsScript;
 
     public Animator playerAnimator;
 
+    public GameObject mainCamera;
     public GameObject currentEnemy;
     public GameObject rangeCylinder;
     public GameObject stoneCenter;
@@ -51,6 +58,11 @@ public class PlayerController : MonoBehaviour {
 
     void Start ()
     {
+        playerCanvas = GetComponentInChildren<Canvas>().gameObject;
+        slowmo.enabled = false;
+        lifesteal.enabled = false;
+        aoe.enabled = false;
+        mainCamera = GameObject.Find("Main Camera");
         attackDone = true;
         playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
         audioSource = GetComponent<AudioSource>();
@@ -77,6 +89,8 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+        playerCanvas.transform.LookAt(mainCamera.transform.position);
         playerHealth = playerStatsScript.playerHealth;
 
         currentScene = SceneManager.GetActiveScene();
@@ -137,11 +151,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         //-------------------------------------------------------------Easter--Egg---------------------------------------------------------------------------//
-
-        if (Input.GetMouseButton(1) && !dead)
-        {
-
-        }
         if (Input.GetMouseButton(0) && !AoEActive)
         {
             SetTargetPosition();
@@ -154,8 +163,6 @@ public class PlayerController : MonoBehaviour {
                     targetPosition.y = this.transform.position.y;
                     lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y, targetPosition.z - transform.position.z);
                     moving = true;
-                    Debug.Log("ITS NOT TRUE");
-                    Debug.Log(Vector3.Distance(transform.position, currentEnemy.transform.position));
 
             }
         }
@@ -187,8 +194,10 @@ public class PlayerController : MonoBehaviour {
 
         if (slowMo)
         {
+            slowmo.gameObject.SetActive(true);
             slowMoSkillTimer = 0;
             slowMoTimer -= Time.deltaTime;
+            slowmo.transform.GetChild(0).GetComponent<Image>().fillAmount = slowMoTimer / 6;
 
             if (slowMoTimer <= 0)
             {
@@ -198,14 +207,20 @@ public class PlayerController : MonoBehaviour {
         }
         if (lifeSteal)
         {
+            lifesteal.gameObject.SetActive(true);
             lifestealSkillTimer = 0;
             lifestealTimer -= Time.deltaTime;
+            lifesteal.transform.GetChild(0).GetComponent<Image>().fillAmount = lifestealTimer / 11;
 
             if (lifestealTimer <= 0)
             {
                 lifeSteal = false;
                 lifestealTimer = 11;
             }
+        }
+        if (AoEActive)
+        {
+            aoe.gameObject.SetActive(true);
         }
     }
 
@@ -382,7 +397,6 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Q) && lifestealSkillTimer >= 15)
         {
-            print(healSkillTimer);
             lifeSteal = true;
         }
         
@@ -416,6 +430,7 @@ public class PlayerController : MonoBehaviour {
         playerAnimator.SetBool("Attack", false);
         playerAnimator.SetBool("AOE", false);
         AoEActive = false;
+        aoe.gameObject.SetActive(false);
     }
 
     void KnockBack(float force)
