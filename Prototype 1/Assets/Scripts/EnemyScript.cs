@@ -6,7 +6,7 @@ public class EnemyScript : MonoBehaviour {
 
     public int enemyHealth;
     public int startHealth;
-    public int enemyAttack;
+    public float enemyAttack;
     public bool inRange;
     public bool healthBarActive;
     ChasingBehavior CBScript;
