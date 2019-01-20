@@ -987,7 +987,7 @@ Transform:
   m_GameObject: {fileID: 765890791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.6415772, y: -7.255165e-18, z: 12.95}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.29999998}
   m_Children:
   - {fileID: 404757254}
   - {fileID: 1026200169}
@@ -1040,7 +1040,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.7602713, z: 1}
+  m_Size: {x: 1.56, y: 2.12, z: 1.32}
   m_Center: {x: 0, y: 0.88337296, z: 0}
 --- !u!65 &765890795
 BoxCollider:
@@ -1072,16 +1072,6 @@ MonoBehaviour:
   arrowPositions: {fileID: 285169605}
   enemyAnimator: {fileID: 765890797}
   patrolSpots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -1121,17 +1111,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5c8e72cc5075c4794596b79085a9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 31
+  enemyHealth: 100
+  startHealth: 0
   enemyAttack: 5
   inRange: 0
+  healthBarActive: 0
   dead: 0
   weaponDropped: 0
-  ranged: 1
+  ranged: 0
   weaponChosen: 0
   weaponDrops:
   - {fileID: 4493385550093688868, guid: ab62bbdfaf4c4944d81e2db6cdde6c55, type: 3}
   - {fileID: 463477122288853558, guid: 0e83c84b77c18914695302ab9a4b3358, type: 3}
   droppedCoin: {fileID: 0}
+  enemyHealthSetup: {fileID: 4217926648845088577, guid: aabcdeae02fab6f40917e44d0f45a15c,
+    type: 3}
+  instantiatedenemyHealthSetup: {fileID: 0}
   coinMovement: {x: 0, y: 0, z: 0}
 --- !u!1 &801022664
 GameObject:
