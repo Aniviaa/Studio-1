@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
     public bool lifeSteal;
     public bool inStoneRange;
     public bool dead;
+    public bool attackDone;
     public float attackTimer;
     public float slowMoTimer;
     public float slowMoSkillTimer;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start ()
     {
+        attackDone = true;
         playerStatsScript = FindObjectOfType<PlayerStatsTracker>();
         audioSource = GetComponent<AudioSource>();
         shopScript = FindObjectOfType<ShopPanel>();
@@ -72,7 +74,11 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if (currentEnemy)
+        {
+
+            Debug.Log(Vector3.Distance(transform.position, currentEnemy.transform.position));
+        }
         playerHealth = playerStatsScript.playerHealth;
 
         currentScene = SceneManager.GetActiveScene();
@@ -143,35 +149,16 @@ public class PlayerController : MonoBehaviour {
         {
             
             SetTargetEnemy();
+            attackDone = false;
 
-            if (currentEnemy && slashTimer > 0.5f)
+            if (currentEnemy && slashTimer > 0.4f && Vector3.Distance(transform.position, currentEnemy.transform.position) >= .4f)
             {
-                slashTimer = 0;
-
-                attackChoice = Random.Range(0 , 10);
-                if(attackChoice < 5)
-                {
-                    audioSource.clip = audioClips[0];//JP DID THIS
-                }
-                if(attackChoice > 5)
-                {
-                    audioSource.clip = audioClips[1];
-                }
-
-                transform.LookAt(currentEnemy.transform.position);
-                attackChoice = Random.Range(0 , 10);
-                playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
-
-                playerAnimator.SetBool("Walk", false);
-                playerAnimator.SetBool("Run", false);
-                playerAnimator.SetBool("Idle", false);
-                playerAnimator.SetBool("Attack", true);
-
-                playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
-                
-
-                slashTimer = 0;
-
+                    targetPosition = currentEnemy.transform.position;
+                    targetPosition.y = this.transform.position.y;
+                    lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y, targetPosition.z - transform.position.z);
+                    moving = true;
+                    Debug.Log("ITS NOT TRUE");
+                    Debug.Log(Vector3.Distance(transform.position, currentEnemy.transform.position));
 
             }
         }
@@ -277,11 +264,6 @@ public class PlayerController : MonoBehaviour {
             {
                 currentEnemy = hit.transform.gameObject;
             }
-            //if (hit.transform.gameObject.tag == "Merchant")
-            //{
-            //    Debug.Log("Merchant");
-            //    shopScript.EnableShopPanel();
-            //}
             if (hit.transform.gameObject.tag == "Stone" && inStoneRange)
             {
                 if (sceneName == "MainMenu")
@@ -303,7 +285,7 @@ public class PlayerController : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
 
-        if (transform.position == targetPosition)
+        if (transform.position == targetPosition && !currentEnemy)
         {
             moving = false;
             playerAnimator.SetBool("Walk", false);
@@ -342,7 +324,7 @@ public class PlayerController : MonoBehaviour {
                 moving = false;
                 audioSource.Play();
                 Debug.Log("Knocback");
-
+                attackDone = true;
                 if (currentEnemy.GetComponent<EnemyScript>().enemyHealth <= 11)
                 {
                     KnockBack(50);
@@ -455,6 +437,75 @@ public class PlayerController : MonoBehaviour {
             grounded = true;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy" && !attackDone && other.gameObject ==  currentEnemy && Vector3.Distance(transform.position, currentEnemy.transform.position) <= .4f)
+        {
+
+            Debug.Log("This is true");
+            moving = false;
+            transform.LookAt(currentEnemy.transform.position);
+
+            attackChoice = Random.Range(0, 10);
+
+            if (attackChoice < 5)
+            {
+                audioSource.clip = audioClips[0];//JP DID THIS
+            }
+            if (attackChoice > 5)
+            {
+                audioSource.clip = audioClips[1];
+            }
+
+            transform.LookAt(currentEnemy.transform.position);
+            attackChoice = Random.Range(0, 10);
+            playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
+
+            playerAnimator.SetBool("Walk", false);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("Attack", true);
+
+            slashTimer = 0;
+            attackDone = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Enemy" && !attackDone && other.gameObject == currentEnemy && Vector3.Distance(transform.position, currentEnemy.transform.position) <= .4f)
+        {
+
+            Debug.Log("This is true");
+            moving = false;
+            transform.LookAt(currentEnemy.transform.position);
+
+            attackChoice = Random.Range(0, 10);
+
+            if (attackChoice < 5)
+            {
+                audioSource.clip = audioClips[0];//JP DID THIS
+            }
+            if (attackChoice > 5)
+            {
+                audioSource.clip = audioClips[1];
+            }
+
+            transform.LookAt(currentEnemy.transform.position);
+            attackChoice = Random.Range(0, 10);
+            playerAnimator.SetInteger("AttackChoice", (int)attackChoice);
+
+            playerAnimator.SetBool("Walk", false);
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Idle", false);
+            playerAnimator.SetBool("Attack", true);
+
+            slashTimer = 0;
+            attackDone = true;
+        }
+    }
+
 }
 
 

@@ -8,7 +8,7 @@ public class BossMeleeAttack : BossNode
     public override Result Execute(BossBehaviorTree BBT)
     {
         if (Vector3.Distance(BBT.transform.position, BBT.player.transform.position) <= BBT.minimumDistance
-            && BBT.GetComponent<EnemyScript>().enemyHealth > 0 && BBT.attackRange <= 5 && BBT.attackTime >= 20 && !BBT.moving)
+            && BBT.GetComponent<EnemyScript>().enemyHealth > 0 && BBT.attackRange <= 5 && BBT.attackTime >= 60 && !BBT.moving)
             
         {
             BBT.anim.SetBool("Attack", true);
@@ -17,7 +17,7 @@ public class BossMeleeAttack : BossNode
             BBT.anim.SetBool("Die", false);
             BBT.statsScript.playerHealth -= BBT.GetComponent<EnemyScript>().enemyAttack;
 
-            if (BBT.attackTime >= 20)
+            if (BBT.attackTime >= 61)
             {
                 BBT.attackTime = 0;
             }

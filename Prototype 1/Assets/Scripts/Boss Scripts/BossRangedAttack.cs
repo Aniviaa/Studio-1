@@ -9,7 +9,7 @@ public class BossRangedAttack : BossNode
         
 
         if (Vector3.Distance(BBT.transform.position, BBT.player.transform.position) <= BBT.minimumDistance
-            && BBT.GetComponent<EnemyScript>().enemyHealth > 0 && BBT.attackRange >= 6 && BBT.attackTime >= 20 && !BBT.moving)
+            && BBT.GetComponent<EnemyScript>().enemyHealth > 0 && BBT.attackRange >= 6 && BBT.attackTime >= 60 && !BBT.moving)
 
         {
 
@@ -21,7 +21,7 @@ public class BossRangedAttack : BossNode
             //Instantiate(EBT.arrow, EBT.arrowPositions.transform.position, Quaternion.identity);
             //BBT.objectPool.Fire(BBT.arrowPositions);
 
-            if (BBT.attackTime >= 20)
+            if (BBT.attackTime >= 61)
             {
                 BBT.attackTime = 0;
             }

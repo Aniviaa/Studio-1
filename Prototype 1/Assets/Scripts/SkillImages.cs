@@ -11,6 +11,7 @@ public class SkillImages : MonoBehaviour {
     public Image healthBar;
     public Image enemiesBar;
     public Image enemiesBackBar;
+    public Image bossHealthBar;
 
     public Text slowMoTime;
     public Text lifestealTime;
@@ -20,10 +21,11 @@ public class SkillImages : MonoBehaviour {
     public float timeMin;
     public float timeSec;
     public float playerHealth;
-
+    public float bossHealth;
     public float enemiesKilledNumber;
     public float enemiesNeeded;
-
+    public GameObject boss;
+    public GameObject bossHealthSetup;
     PlayerController pcScript;
     PlayerStatsTracker statsScript;
     BossSpawner bossScript;
@@ -49,12 +51,16 @@ public class SkillImages : MonoBehaviour {
 
         if (!bossScript.bossSpawned)
         {
-            time.text = timeMin.ToString() + " : " + timeSec.ToString();
+            time.text = timeMin.ToString("00") + " : " + timeSec.ToString("00");
             enemiesKilled.text = enemiesKilledNumber.ToString() + "/" + enemiesNeeded.ToString();
             enemiesBar.fillAmount = enemiesKilledNumber / enemiesNeeded;
         }
         else
         {
+            boss = GameObject.Find("Boss(Clone)");
+            bossHealthSetup.SetActive(true);
+            bossHealthBar.gameObject.SetActive(true);
+            bossHealthBar.fillAmount = boss.GetComponent<EnemyScript>().enemyHealth / bossHealth;
             time.gameObject.SetActive(false);
             enemiesKilled.gameObject.SetActive(false);
             enemiesBar.gameObject.SetActive(false);
